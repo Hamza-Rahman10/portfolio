@@ -2,50 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Hamza Rahman | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-white text-gray-800 font-sans">
 
-    
-    <nav>
-    <ul>
-        <li><a href="index.html"></a><li>Home</li>
-        <li><a href="foundation.html">Foundation Year</a></li>
-        <li><a href="first-year.html">First Year</a></li>
-        <li><a href="second-year.html">Second Year</a></li>
-        <li><a href="internship.html">Internship</a></li>
-        <li><a href="third-year.html">Third Year</a></li>
-    </ul>
+    <!-- Navbar -->
+    <nav class="bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <span class="font-semibold text-lg">Hamza Rahman</span>
+            <ul class="flex space-x-4 text-sm">
+                <li><a href="foundation.html" class="hover:text-blue-300">Foundation Year</a></li>
+                <li><a href="first-year.html" class="hover:text-blue-300">First Year</a></li>
+                <li><a href="second-year.html" class="hover:text-blue-300">Second Year</a></li>
+                <li><a href="internship.html" class="hover:text-blue-300">Internship</a></li>
+                <li><a href="third-year.html" class="hover:text-blue-300">Third Year</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <header>
-        <h1>Hamza Rahman</h1>
-        <p>Computer Science Student Portfolio</p>
-    </header>
+    <!-- Introduction Section -->
+    <main class="max-w-4xl mx-auto px-4 py-10 text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to My Portfolio</h1>
+        <p class="text-gray-700 text-lg mb-8">
+            I’m Hamza Rahman, a Computer Science student at Goldsmiths University. This portfolio showcases my academic work and projects from Foundation Year through to my Third Year, including my internship experience.
+        </p>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I’m a Comp Science student at Goldsmiths University, passionate about tech and innovation. This site showcases my projects from foundation to third year.</p>
+        <a href="foundation.html" class="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+            View My Work
+        </a>
+    </main>
+
+    <!-- Overview Section -->
+    <section class="max-w-6xl mx-auto px-4 py-10">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Portfolio Overview</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <a href="foundation.html" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 class="font-semibold text-lg mb-2">Foundation Year</h3>
+                <p class="text-sm text-gray-600">Introduction in web development and programming fundamentals, Monte Carlo simulation, Arduino Circuts, Data modelling, Python (I didnt properly document this part) etc.</p>
+            </a>
+
+            <a href="first-year.html" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 class="font-semibold text-lg mb-2">First Year</h3>
+                <p class="text-sm text-gray-600">Creative Computing project, Designing digital interraction, front end web, graphics, identify, environment and agency, Introduction to progrmming, Sounds and Signals.</p>
+            </a>
+
+            <a href="second-year.html" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 class="font-semibold text-lg mb-2">Second Year</h3>
+                <p class="text-sm text-gray-600">C++, Creating Comics and graphic novels, Creative computing project 2, Creative embedded programming, Creative game engine developement, Dynamic web developement, The goldsmiths project.</p>
+            </a>
+
+            <a href="internship.html" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 class="font-semibold text-lg mb-2">Internship</h3>
+                <p class="text-sm text-gray-600">Industry experience through an internship at Skyports, working in DevOps, DevIT and DevQA.</p>
+            </a>
+
+            <a href="third-year.html" class="border border-gray-300 rounded-lg p-4 hover:bg-gray-50 transition">
+                <h3 class="font-semibold text-lg mb-2">Third Year</h3>
+                <p class="text-sm text-gray-600">TBD</p>
+            </a>
+
+        </div>
     </section>
 
-    <section id="projects">
-        <h2>My Work</h2>
-        <ul>
-            <li>🎮 Narrative-Based Game Project (Year 3)</li>
-            <li>🛠️ Skyports Internship Work (Year 3)</li>
-            <li>📊 Database Systems Project (Year 2)</li>
-            <li>🖥️ Web Development Basics (Foundation)</li>
-        </ul>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <p>JavaScript, Python, Docker, Azure, Terraform, Git, Node-RED, Unreal Engine 5, Godot.</p>
-    </section>
-
-    <footer>
-        <p>Contact: hamza.rahman10@hotmail.com</p>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-4 mt-10 text-sm">
+        &copy; 2025 Hamza Rahman | Student Portfolio
     </footer>
+
 </body>
 </html>
+
