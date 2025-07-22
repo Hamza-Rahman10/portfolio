@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Foundation Year Projects</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <title>Foundation Year Projects | Hamza Rahman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800">
 
-    <!-- Navbar -->
-    <nav class="bg-blue-800 text-white py-4">
-        <ul class="flex justify-center space-x-6 font-semibold">
-            <li><a href="index.html" class="hover:underline">Home</a>
-            <li><a href="foundation.html" class="hover:underline">Foundation Year</a></li>
-            <li><a href="first-year.html" class="hover:underline">First Year</a></li>
-            <li><a href="second-year.html" class="hover:underline">Second Year</a></li>
-            <li><a href="internship.html" class="hover:underline">Internship</a></li>
-            <li><a href="third-year.html" class="hover:underline">Third Year</a></li>
-        </ul>
-    </nav>
+  <!-- Navbar -->
+  <nav class="bg-blue-900 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Hamza's Portfolio</h1>
+      <ul class="flex space-x-6 text-sm font-semibold">
+        <li><a href="index.html" class="hover:text-yellow-300">Home</a>
+        <li><a href="foundation.html" class="hover:text-yellow-300">Foundation Year</a></li>
+        <li><a href="first-year.html" class="hover:text-yellow-300">First Year</a></li>
+        <li><a href="second-year.html" class="hover:text-yellow-300">Second Year</a></li>
+        <li><a href="internship.html" class="hover:text-yellow-300">Internship</a></li>
+        <li><a href="third-year.html" class="hover:text-yellow-300">Third Year</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Page Content -->
-    <div class="max-w-4xl mx-auto py-10 px-4">
+  <!-- Hero Section -->
+  <section class="relative h-64 bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+    <div class="bg-black bg-opacity-50 w-full h-full absolute top-0 left-0 z-0"></div>
+    <div class="z-10 text-center">
+      <h2 class="text-4xl font-extrabold mb-2">Foundation Year Projects</h2>
+      <p class="text-lg font-medium">Laying the groundwork for my computer science journey</p>
+    </div>
+  </section>
 
-        <h1 class="text-3xl font-bold mb-6 text-blue-700">Foundation Year Projects</h1>
+  <!-- Projects Section -->
+  <section class="max-w-6xl mx-auto px-6 py-12">
+    <h3 class="text-2xl font-bold text-blue-900 mb-8">Highlights</h3>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <p class="mb-6">
-            This page showcases all my work completed during my Foundation Year at Goldsmiths University.
-        </p>
+      <!-- Project Card 1 -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 hover:scale-105 transform transition duration-300">
+        <h4 class="text-xl font-semibold mb-2 text-blue-700">Basic Website Development</h4>
+        <p class="text-sm text-gray-600">Created a static site using HTML & CSS, introducing key concepts like semantic structure, navigation, and styling.</p>
+      </div>
 
-        <ul class="list-disc list-inside space-y-2">
-            <li><span class="font-semibold">Basic Website Development:</span> A simple static site project using HTML and CSS.</li>
-            <li><span class="font-semibold">Python Beginner Projects:</span> Small programs to learn fundamentals of programming.</li>
-            <li><span class="font-semibold">Group Presentation:</span> A collaborative presentation on emerging technology trends.</li>
-        </ul>
+      <!-- Project Card 2 -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 hover:scale-105 transform transition duration-300">
+        <h4 class="text-xl font-semibold mb-2 text-blue-700">Python Mini Projects</h4>
+        <p class="text-sm text-gray-600">Built small console-based apps to learn loops, conditionals, data types, and basic logic building in Python.</p>
+      </div>
+
+      <!-- Project Card 3 -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 hover:scale-105 transform transition duration-300">
+        <h4 class="text-xl font-semibold mb-2 text-blue-700">Group Presentation on Tech</h4>
+        <p class="text-sm text-gray-600">Collaborated on a presentation about emerging tech trends like AI, Blockchain, and AR/VR for education.</p>
+      </div>
 
     </div>
+  </section>
 
-    <footer class="bg-blue-800 text-white text-center py-4 mt-10">
-        &copy; 2025 Hamza Rahman. All rights reserved.
-    </footer>
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white text-center py-4 mt-10 text-sm">
+    &copy; 2025 Hamza Rahman. All rights reserved.
+  </footer>
 
 </body>
 </html>
+
 
