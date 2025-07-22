@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Foundation Year Projects</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
     <!-- Navbar -->
-    <nav>
-        <ul>
-            <li><a href="foundation.html">Foundation Year</a></li>
-            <li><a href="first-year.html">First Year</a></li>
-            <li><a href="second-year.html">Second Year</a></li>
-            <li><a href="internship.html">Internship</a></li>
-            <li><a href="third-year.html">Third Year</a></li>
+    <nav class="bg-blue-800 text-white py-4">
+        <ul class="flex justify-center space-x-6 font-semibold">
+            <li><a href="index.html" class="hover:underline">Home</a>
+            <li><a href="foundation.html" class="hover:underline">Foundation Year</a></li>
+            <li><a href="first-year.html" class="hover:underline">First Year</a></li>
+            <li><a href="second-year.html" class="hover:underline">Second Year</a></li>
+            <li><a href="internship.html" class="hover:underline">Internship</a></li>
+            <li><a href="third-year.html" class="hover:underline">Third Year</a></li>
         </ul>
     </nav>
 
-    <h1>Foundation Year Projects</h1>
-    <p>This page showcases all my Foundation Year work.</p>
-    <ul>
-        <li>Project 1: Basic Website Development</li>
-        <li>Project 2: Python Beginner Projects</li>
-        <li>Project 3: Group Presentation on Tech Trends</li>
-    </ul>
+    <!-- Page Content -->
+    <div class="max-w-4xl mx-auto py-10 px-4">
+
+        <h1 class="text-3xl font-bold mb-6 text-blue-700">Foundation Year Projects</h1>
+
+        <p class="mb-6">
+            This page showcases all my work completed during my Foundation Year at Goldsmiths University.
+        </p>
+
+        <ul class="list-disc list-inside space-y-2">
+            <li><span class="font-semibold">Basic Website Development:</span> A simple static site project using HTML and CSS.</li>
+            <li><span class="font-semibold">Python Beginner Projects:</span> Small programs to learn fundamentals of programming.</li>
+            <li><span class="font-semibold">Group Presentation:</span> A collaborative presentation on emerging technology trends.</li>
+        </ul>
+
+    </div>
+
+    <footer class="bg-blue-800 text-white text-center py-4 mt-10">
+        &copy; 2025 Hamza Rahman. All rights reserved.
+    </footer>
 
 </body>
 </html>
+
