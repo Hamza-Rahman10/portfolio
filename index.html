@@ -8,6 +8,18 @@
 </head>
 <body class="bg-cover bg-center bg-fixed text-gray-800" style="background-image: url('Images/UEA2.jpg');">
 
+    <!-- Eyeballs Container -->
+  <div id="eyes" class="fixed top-1/2 left-0 w-full flex justify-between px-16 pointer-events-none z-20">
+    <!-- Left Eye -->
+    <div class="eye bg-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg">
+      <div class="pupil bg-black rounded-full w-8 h-8"></div>
+    </div>
+
+    <!-- Right Eye -->
+    <div class="eye bg-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg">
+      <div class="pupil bg-black rounded-full w-8 h-8"></div>
+    </div>
+  </div>
 
   <!-- hero section -->
   <section class="relative bg-cover bg-center py-12" style="background-image: url('Images/Pastel.png');">
@@ -100,6 +112,24 @@
   <footer class="bg-white border-t text-center py-4 text-sm text-gray-500">
     &copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.
   </footer>
+
+    <script>
+    const eyes = document.querySelectorAll('.eye');
+    document.addEventListener('mousemove', (e) => {
+      eyes.forEach(eye => {
+        const pupil = eye.querySelector('.pupil');
+        const rect = eye.getBoundingClientRect();
+        const eyeCenterX = rect.left + rect.width / 2;
+        const eyeCenterY = rect.top + rect.height / 2;
+        const angle = Math.atan2(e.pageY - eyeCenterY, e.pageX - eyeCenterX);
+        const distance = Math.min(8, Math.hypot(e.pageX - eyeCenterX, e.pageY - eyeCenterY) / 20);
+        const pupilX = distance * Math.cos(angle);
+        const pupilY = distance * Math.sin(angle);
+        pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+      });
+    });
+  </script>
+
 
 </body>
 </html>
