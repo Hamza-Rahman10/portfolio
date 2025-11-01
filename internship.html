@@ -69,8 +69,7 @@
   </header>
 
   <!-- hero section -->
-  <section class="relative bg-blue-50 py-12 bg-cover bg-center" 
-    style="background-image: url('Images/skyports.jpeg');">
+  <section class="relative bg-blue-50 pt-40 pb-16 bg-cover bg-center" style="background-image: url('Images/skyports.jpeg');">
     <div class="absolute inset-0 bg-blue-900/50"></div>
     <div class="relative max-w-4xl mx-auto text-center px-4 text-white">
       <h2 class="text-3xl font-semibold mb-2">Internship Overview</h2>
@@ -144,7 +143,7 @@
           I learned to use Terraform for cloud provisioning, Power Automate for workflow automation, and Grafana for live system monitoring — building a complete DevOps loop.
         </p>
         <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Designing Digital interaction.png" alt="Internship" 
+        <img src="Images/docker-architecture.webp" alt="Internship" 
              class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
         <div class="p-6">
           <h4 class="font-semibold text-lg mb-2">Docker</h4>
@@ -153,10 +152,28 @@
         </div>
 
         <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Designing Digital interaction.png" alt="Internship" 
+        <img src="Images/Azure.png" alt="Internship" 
              class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
         <div class="p-6">
           <h4 class="font-semibold text-lg mb-2">Azure</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/grafana-dashboard-english.png" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">Grafana</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/cicd-pipelines-1.webp" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">CI/CD pipelines</h4>
           <p class="text-sm text-gray-700">
           </p>
         </div>
@@ -175,6 +192,42 @@
         <p class="text-gray-700">
           I learned how these tools integrate into Skyports’ infrastructure — from cloud-managed CCTV systems to building access control — enhancing both digital and physical security.
         </p>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/Knowbe4.png" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">KnowBe4</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/Brivo.jpg" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">Brivo</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/Eagle Eye Networks.jpg" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">Eagle Eye Networks</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="Images/Microsoft Defender.png" alt="Internship" 
+             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
+        <div class="p-6">
+          <h4 class="font-semibold text-lg mb-2">Microsoft Defender</h4>
+          <p class="text-sm text-gray-700">
+          </p>
+        </div>
       </div>
 
       <!-- reflection -->
@@ -215,6 +268,33 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- (Java) Script -->
+  <script>
+    const images = document.querySelectorAll('.expandable');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModal = document.getElementById('closeModal');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modalImg.src = img.src;
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modalImg.src = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modalImg.src = '';
+      }
+    });
   </script>
 
 
