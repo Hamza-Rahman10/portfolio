@@ -38,12 +38,19 @@
       border-bottom: 1px solid #ffffff;
       z-index: 20;
     }
+    .glow-card {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      transition: box-shadow 0.3s ease;
+    }
+    .glow-card:hover {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
   </style>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
 
-  <!-- Header / Navbar -->
+  <!-- header / navbar -->
   <header class="bg-blue shadow">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <h1 class="text-lg font-semibold tracking-wide">Hamza Rahman</h1>
@@ -61,7 +68,7 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- hero section -->
   <section class="relative bg-blue-50 py-12 bg-cover bg-center" 
     style="background-image: url('Images/skyports.jpeg');">
     <div class="absolute inset-0 bg-blue-900/50"></div>
@@ -73,53 +80,87 @@
     </div>
   </section>
 
-  <!-- Content Section -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h3 class="text-2xl font-bold mb-6">Dev OPS</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- internship Development Log -->
+  <section class="max-w-6xl mx-auto px-6 py-16 text-gray-900">
+    <h2 class="text-3xl font-bold text-center mb-10 text-blue-700">Internship Development Log</h2>
 
+    <div class="space-y-10">
 
+      <!-- devOps -->
+      <div class="fade-up glow-card bg-white rounded-xl shadow-lg p-6 opacity-0 translate-y-10 transition-all duration-700 ease-out">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-4">DevOps (with Dabeer)</h3>
+        <p class="text-gray-700 mb-2">
+          I explored <strong>Containers, OAuth, Git branching, Node-RED</strong>, and <strong>Postman</strong> — learning how to build, deploy, and test scalable microservices and APIs. 
+          Using Git for version control, I managed development branches; Node-RED for visual workflow automation; OAuth for secure authentication; and Postman for API testing.
+        </p>
+        <p class="text-gray-700">
+          These tools came together in a real-world pipeline: <strong>Git repo → Docker container → Node-RED flow → OAuth-secured API → tested via Postman</strong>.
+        </p>
+      </div>
 
+      <!-- dev QA -->
+      <div class="fade-up glow-card bg-white rounded-xl shadow-lg p-6 opacity-0 translate-y-10 transition-all duration-700 ease-out">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-4">Dev QA (with Robin)</h3>
+        <p class="text-gray-700 mb-2">
+          Worked with <strong>Azure, Power Automate, Docker, Terraform, CI/CD pipelines, and Grafana</strong> to support cloud automation and monitoring.
+        </p>
+        <p class="text-gray-700">
+          I learned to use Terraform for cloud provisioning, Power Automate for workflow automation, and Grafana for live system monitoring — building a complete DevOps loop.
+        </p>
+      </div>
+
+      <!-- dev IT -->
+      <div class="fade-up glow-card bg-white rounded-xl shadow-lg p-6 opacity-0 translate-y-10 transition-all duration-700 ease-out">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-4">Dev IT (with Ryan)</h3>
+        <p class="text-gray-700 mb-2">
+          In the IT team, I gained experience in <strong>networking, security awareness, and infrastructure management</strong> using tools like 
+          <strong>KnowBe4, Brivo, Eagle Eye Networks, and Microsoft Defender</strong>.
+        </p>
+        <p class="text-gray-700">
+          I learned how these tools integrate into Skyports’ infrastructure — from cloud-managed CCTV systems to building access control — enhancing both digital and physical security.
+        </p>
+      </div>
+
+      <!-- reflection -->
+      <div class="fade-up glow-card bg-white rounded-xl shadow-lg p-6 opacity-0 translate-y-10 transition-all duration-700 ease-out">
+        <h3 class="text-2xl font-semibold text-blue-700 mb-4">Reflection</h3>
+        <p class="text-gray-800">
+          My internship at Skyports gave me a practical understanding of how DevOps, QA, and IT align in real industry environments. 
+          It helped me develop a stronger sense of system design, automation, and collaboration — skills that continue to shape my journey as a Computer Science student and future engineer.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- download Button -->
+    <div class="text-center mt-10">
+      <a href="Files/Hamza Rahman Internship Dev log.pptx" 
+        class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+        📂 Download My Internship Presentation
+      </a>
     </div>
   </section>
 
-    <!-- Modal -->
-  <div id="imageModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <span id="closeModal" class="absolute top-6 right-8 text-white text-3xl cursor-pointer hover:text-gray-300">&times;</span>
-    <img id="modalImg" class="max-w-4xl max-h-[80vh] rounded-lg shadow-lg border border-gray-300" src="" alt="">
-  </div>
 
-  <!-- Footer -->
+  <!-- footer -->
   <footer class="bg-white border-t text-center py-4 text-sm text-gray-500">
     &copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.
   </footer>
 
     <!-- (Java) Script -->
   <script>
-    const images = document.querySelectorAll('.expandable');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    const closeModal = document.getElementById('closeModal');
-
-    images.forEach(img => {
-      img.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        modalImg.src = img.src;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0', 'translate-y-10');
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+        }
       });
-    });
+    }, { threshold: 0.2 });
 
-    closeModal.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modalImg.src = '';
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modalImg.src = '';
-      }
-    });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
+
 
 </body>
 </html>
