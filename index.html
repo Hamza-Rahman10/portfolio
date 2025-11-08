@@ -38,6 +38,17 @@
       border-bottom: 1px solid #1a1a1a;
       z-index: 20;
     }
+
+    /* TYPEWRITER (text font) */
+    #typedText::after {
+      content: "|";
+      animation: blink 0.6s infinite;
+    }
+    @keyframes blink {
+      0% {opacity:1;}
+      50% {opacity:0;}
+      100% {opacity:1;}
+    }
   </style>
 </head>
 
@@ -63,9 +74,11 @@
 
   <!-- Hero -->
   <section class="h-screen flex flex-col justify-center items-center text-center px-6">
-    <h2 class="text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">Digital Craft & Creative Coding</h2>
+    <h2 class="text-5xl md:text-6xl font-extrabold mb-4 tracking-tight text-white">
+      <span id="typedText"></span>
+    </h2>
     <p class="text-gray-300 max-w-lg mb-8">
-      Exploring creativity through technology, blending design, development, and interactivity all the while having fun!
+      Exploring creativity through technology, blending design, development, and interactivity all the while having fun! (Proudly built with HTML, tailwindCSS and a tad bit of JavaScript)
     </p>
     <a href="#about" class="border border-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition">Enter Portfolio</a>
   </section>
@@ -125,6 +138,20 @@
   <footer class="text-center py-8 text-gray-500 text-sm border-t border-gray-800">
     &copy; 2025 Hamza Rahman — “Player 1: Still coding, still learning.”
   </footer>
+
+  <!-- TYPEWRITER SCRIPT -->
+  <script>
+    const text = "Digital Craft & Creative Coding";
+    let index = 0;
+    function typeWriter() {
+      if (index < text.length) {
+        document.getElementById("typedText").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 60);
+      }
+    }
+    window.onload = typeWriter;
+  </script>
 
   <!-- Three.js Background -->
   <script>
