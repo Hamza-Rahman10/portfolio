@@ -204,7 +204,11 @@
   </script>
 
   <!-- Three.js Background -->
-  <script>
+  <script type="module">
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+
+    /* MAIN HERO TORUS BG */
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bg"), alpha: true });
@@ -228,20 +232,9 @@
     }
     animate();
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
-
-  <!-- Three.js 3D Model Background -->
-  <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
-    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
-
+    /* DRONE MODEL BG */
     const modelCanvas = document.getElementById("model-bg");
-    const THREE_GLOBAL = THREE;
+    const modelRenderer = new THREE.WebGLRenderer({ canvas: modelCanvas, alpha: true });
     modelRenderer.setSize(window.innerWidth, window.innerHeight);
 
     const modelScene = new THREE.Scene();
@@ -254,41 +247,31 @@
 
     let model;
     const loader = new GLTFLoader();
-    loader.load("../3DModels/drone.glb", (gltf) => {
+    loader.load("./3DModels/drone.glb", gltf => {
       model = gltf.scene;
+      model.scale.set(1.2, 1.2, 1.2);
+      model.position.y = -0.5;
       modelScene.add(model);
     });
 
     function animateModel() {
       requestAnimationFrame(animateModel);
-      if(model) model.rotation.y += 0.01;
+      if (model) model.rotation.y += 0.01;
       modelRenderer.render(modelScene, modelCamera);
     }
     animateModel();
 
     window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
       modelCamera.aspect = window.innerWidth / window.innerHeight;
       modelCamera.updateProjectionMatrix();
       modelRenderer.setSize(window.innerWidth, window.innerHeight);
     });
-
-    const targets = ["about", "more"].map(id => document.getElementById(id));
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          modelCanvas.classList.remove("opacity-0");
-          modelCanvas.classList.add("opacity-100");
-        } else {
-          modelCanvas.classList.remove("opacity-100");
-          modelCanvas.classList.add("opacity-0");
-        }
-      })
-    }, { threshold: 0.4 });
-
-    targets.forEach(section => observer.observe(section));
-
   </script>
+
 
 </body>
 </html>
