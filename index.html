@@ -254,7 +254,7 @@
 
     let model;
     const loader = new GLTFLoader();
-    loader.load("./3DModels/drone.glb", (gltf) => {
+    loader.load("../3DModels/drone.glb", (gltf) => {
       model = gltf.scene;
       modelScene.add(model);
     });
