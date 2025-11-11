@@ -184,6 +184,8 @@
     </div>
   </section>
 
+  <canvas id="model-bg" class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-0 transition-opacity duration-700 z-0"></canvas>
+
   <footer class="text-center py-8 text-gray-500 text-sm border-t border-gray-800">
     &copy; 2025 Hamza Rahman — “Player 1: Still coding, still learning.”
   </footer>
@@ -233,5 +235,59 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
   </script>
+
+  <!-- Three.js 3D Model Background -->
+  <script type="module">
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+
+    const modelCanvas = document.getElementById("model-bg");
+    const modelRenderer = new THREE.WebGLRenderer({ canvas: modelCanvas, alpha: true });
+    modelRenderer.setSize(window.innerWidth, window.innerHeight);
+
+    const modelScene = new THREE.Scene();
+    const modelCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    modelCamera.position.z = 3;
+
+    const modelLight = new THREE.PointLight(0xffffff, 1.3);
+    modelLight.position.set(4, 4, 6);
+    modelScene.add(modelLight);
+
+    let model;
+    const loader = new GLTFLoader();
+    loader.load("3DModels/drone.glb", (gltf) => {
+      model = gltf.scene;
+      modelScene.add(model);
+    });
+
+    function animateModel() {
+      requestAnimationFrame(animateModel);
+      if(model) model.rotation.y += 0.01;
+      modelRenderer.render(modelScene, modelCamera);
+    }
+    animateModel();
+
+    window.addEventListener("resize", () => {
+      modelCamera.aspect = window.innerWidth / window.innerHeight;
+      modelCamera.updateProjectionMatrix();
+      modelRenderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const targets = ["about", "aspirations"].map(id => document.getElementById(id));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          canvas.classList.remove("opacity-0");
+          canvas.classList.add("opacity-100");
+        } else {
+          canvas.classList.remove("opacity-100");
+          canvas.classList.add("opacity-0");
+        }
+      })
+    }, { threshold: 0.4 });
+
+    targets.forEach(section => observer.observe(section));
+  </script>
+
 </body>
 </html>
