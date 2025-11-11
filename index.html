@@ -255,7 +255,7 @@
 
     let model;
     const loader = new GLTFLoader();
-    loader.load("3DModels/drone.glb", (gltf) => {
+    loader.load("./3DModels/drone.glb", (gltf) => {
       model = gltf.scene;
       modelScene.add(model);
     });
@@ -273,20 +273,22 @@
       modelRenderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    const targets = ["about", "aspirations"].map(id => document.getElementById(id));
+    const targets = ["about", "more"].map(id => document.getElementById(id));
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if(entry.isIntersecting){
-          canvas.classList.remove("opacity-0");
-          canvas.classList.add("opacity-100");
+          modelCanvas.classList.remove("opacity-0");
+          modelCanvas.classList.add("opacity-100");
         } else {
-          canvas.classList.remove("opacity-100");
-          canvas.classList.add("opacity-0");
+          modelCanvas.classList.remove("opacity-100");
+          modelCanvas.classList.add("opacity-0");
         }
       })
     }, { threshold: 0.4 });
 
     targets.forEach(section => observer.observe(section));
+
   </script>
 
 </body>
