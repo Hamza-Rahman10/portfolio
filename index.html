@@ -239,17 +239,17 @@
 
     const modelScene = new THREE.Scene();
     const modelCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    modelCamera.position.z = 3;
+    modelCamera.position.z = 5;
 
-    const modelLight = new THREE.PointLight(0xffffff, 1.3);
+    const modelLight = new THREE.PointLight(0xffffff, 0.5);
     modelLight.position.set(4, 4, 6);
     modelScene.add(modelLight);
 
     let model;
     const loader = new GLTFLoader();
-    loader.load("./3DModels/drone.glb", gltf => {
+    loader.load("/3DModels/drone.glb", gltf => {
       model = gltf.scene;
-      model.scale.set(1.2, 1.2, 1.2);
+      model.scale.set(5, 5, 5);
       model.position.y = -0.5;
       modelScene.add(model);
     });
