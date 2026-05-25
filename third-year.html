@@ -375,6 +375,76 @@
     </div>
   </section>
 
+  <!-- ===== MEDIA GALLERY ===== -->
+  <!--
+    EXTRA PHOTOS & VIDEOS
+    • Photos use class "expandable" so they pop out fullscreen on click.
+    • Add or remove tiles freely — the grid reflows automatically.
+    • Swap the src filenames for your real files in Images/ and Videos/.
+  -->
+  <section class="max-w-6xl mx-auto px-5 py-24">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">04 — GALLERY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">More from the year</h2>
+      <p class="dim mt-3 max-w-xl">A few extra moments, screenshots and clips from my final-year work. Click any photo to view it full size.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal">
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 1.jpg" alt="Gallery photo 1"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video (spans 2 columns for variety) -->
+      <div class="card panel rounded-xl overflow-hidden col-span-2">
+        <video src="Videos/Gallery 1.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 2.jpg" alt="Gallery photo 2"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 3.jpg" alt="Gallery photo 3"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 4.jpg" alt="Gallery photo 4"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <video src="Videos/Gallery 2.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 5.jpg" alt="Gallery photo 5"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video (spans 2 columns) -->
+      <div class="card panel rounded-xl overflow-hidden col-span-2">
+        <video src="Videos/Gallery 3.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 6.jpg" alt="Gallery photo 6"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===== IMAGE MODAL (click-to-zoom for .expandable photos) ===== -->
   <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
     <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
