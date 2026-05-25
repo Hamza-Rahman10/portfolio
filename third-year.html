@@ -171,111 +171,148 @@
       <h2 class="display text-4xl md:text-5xl font-bold">Selected work</h2>
     </div>
 
+    <!--
+      ============================================================
+      HOW TO ADD YOUR OWN MEDIA
+      ------------------------------------------------------------
+      • VIDEO:  <video src="Videos/yourfile.mp4" class="w-full h-48 object-cover" controls muted loop></video>
+      • PHOTO:  <img src="Images/yourfile.jpg" alt="..." class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+                (the "expandable" class makes it pop out fullscreen on click)
+      • Put media FIRST inside the .card div, then keep the text inside the <div class="p-7"> below it.
+      • Just drop your files into your existing Images/ and Videos/ folders and rename below.
+      ============================================================
+    -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Featured: Final project -->
+      <!-- Featured: Final project (wide card, taller media) -->
       <div class="md:col-span-2 reveal">
-        <div class="card panel rounded-2xl p-8 h-full flex flex-col justify-between" id="dissertation">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="mono text-xs px-3 py-1 rounded-full" style="background: rgba(45,76,219,.1); color: var(--accent);">FINAL-YEAR PROJECT</span>
-              <span class="mono text-xs dim">FEATURED</span>
+        <div class="card panel rounded-2xl overflow-hidden h-full flex flex-col">
+          <!-- MEDIA: replace src with your final-project demo video -->
+          <video src="Videos/Final Year Project.mp4" class="w-full h-64 object-cover bg-black" controls muted loop></video>
+          <div class="p-8 flex flex-col justify-between flex-1" id="dissertation">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="mono text-xs px-3 py-1 rounded-full" style="background: rgba(45,76,219,.1); color: var(--accent);">FINAL-YEAR PROJECT</span>
+                <span class="mono text-xs dim">FEATURED</span>
+              </div>
+              <h3 class="display text-3xl font-bold mb-3">Final-Year Project &amp; Dissertation</h3>
+              <p class="dim leading-relaxed max-w-2xl">
+                A substantial individual project taking a real problem from proposal through to a
+                working, evaluated system. It brings together everything from my degree — software
+                architecture, rigorous testing, research methodology and a written dissertation
+                documenting the design decisions, implementation and results.
+              </p>
             </div>
-            <h3 class="display text-3xl font-bold mb-3">Final-Year Project &amp; Dissertation</h3>
-            <p class="dim leading-relaxed max-w-2xl">
-              A substantial individual project taking a real problem from proposal through to a
-              working, evaluated system. It brings together everything from my degree — software
-              architecture, rigorous testing, research methodology and a written dissertation
-              documenting the design decisions, implementation and results.
+            <div class="flex flex-wrap gap-2 mt-6">
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Research</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">System Design</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Evaluation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Machine Learning (PHOTO, expandable) -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with your ML screenshot/graph -->
+          <img src="Images/Machine Learning.jpg" alt="Machine learning project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Machine Learning &amp; Data Science</h3>
+            <p class="dim text-sm leading-relaxed">
+              Building and training models on real datasets — supervised and unsupervised learning,
+              neural networks, evaluation metrics and the full pipeline of cleaning, feature
+              engineering and tuning. Focus on understanding why a model works, not just running it.
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 mt-6">
-            <span class="mono text-xs px-3 py-1 rounded-full panel">Research</span>
-            <span class="mono text-xs px-3 py-1 rounded-full panel">System Design</span>
-            <span class="mono text-xs px-3 py-1 rounded-full panel">Evaluation</span>
+        </div>
+      </div>
+
+      <!-- Distributed Systems (PHOTO, expandable) -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with your systems/architecture diagram -->
+          <img src="Images/Distributed Systems.jpg" alt="Distributed systems project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Distributed &amp; Cloud Systems</h3>
+            <p class="dim text-sm leading-relaxed">
+              Designing software that scales across machines — concurrency, fault tolerance,
+              containerisation and deployment. Extends my Skyports DevOps experience with Azure,
+              Docker, Terraform and CI/CD into a deeper architectural understanding.
+            </p>
           </div>
         </div>
       </div>
 
-      <!-- Machine Learning -->
+      <!-- Advanced Software Engineering (PHOTO, expandable) -->
       <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">🧠</div>
-          <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Machine Learning &amp; Data Science</h3>
-          <p class="dim text-sm leading-relaxed">
-            Building and training models on real datasets — supervised and unsupervised learning,
-            neural networks, evaluation metrics and the full pipeline of cleaning, feature
-            engineering and tuning. Focus on understanding why a model works, not just running it.
-          </p>
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with a screenshot of your codebase/app -->
+          <img src="Images/Software Engineering.jpg" alt="Software engineering project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Advanced Software Engineering</h3>
+            <p class="dim text-sm leading-relaxed">
+              Working at scale with clean architecture, design patterns, testing strategies and
+              collaborative version control. Emphasis on writing maintainable, well-documented code
+              that a team could pick up and extend.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Distributed Systems -->
+      <!-- Real-time Graphics (VIDEO) -->
       <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">🛰️</div>
-          <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Distributed &amp; Cloud Systems</h3>
-          <p class="dim text-sm leading-relaxed">
-            Designing software that scales across machines — concurrency, fault tolerance,
-            containerisation and deployment. Extends my Skyports DevOps experience with Azure,
-            Docker, Terraform and CI/CD into a deeper architectural understanding.
-          </p>
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with your Three.js / graphics demo clip -->
+          <video src="Videos/Real-Time Graphics.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Real-Time 3D &amp; Graphics</h3>
+            <p class="dim text-sm leading-relaxed">
+              Pushing creative computing further with interactive 3D using Three.js and shader work —
+              building on my Godot game projects to explore rendering, lighting and procedural
+              visuals in the browser. (The hero animation above is a small taste.)
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Advanced Software Engineering -->
+      <!-- Applied AI / research (PHOTO, expandable) -->
       <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">⚙️</div>
-          <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Advanced Software Engineering</h3>
-          <p class="dim text-sm leading-relaxed">
-            Working at scale with clean architecture, design patterns, testing strategies and
-            collaborative version control. Emphasis on writing maintainable, well-documented code
-            that a team could pick up and extend.
-          </p>
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with a figure/poster from your research -->
+          <img src="Images/Applied AI.jpg" alt="Applied AI research"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Applied AI &amp; Research Methods</h3>
+            <p class="dim text-sm leading-relaxed">
+              Research-led work: reading papers critically, forming hypotheses, designing experiments
+              and reporting results properly. The methodological backbone behind my final-year project.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Real-time Graphics -->
+      <!-- Creative capstone (VIDEO) -->
       <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">🎨</div>
-          <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Real-Time 3D &amp; Graphics</h3>
-          <p class="dim text-sm leading-relaxed">
-            Pushing creative computing further with interactive 3D using Three.js and shader work —
-            building on my Godot game projects to explore rendering, lighting and procedural
-            visuals in the browser. (The hero animation above is a small taste.)
-          </p>
-        </div>
-      </div>
-
-      <!-- Applied AI / research -->
-      <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">🔬</div>
-          <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Applied AI &amp; Research Methods</h3>
-          <p class="dim text-sm leading-relaxed">
-            Research-led work: reading papers critically, forming hypotheses, designing experiments
-            and reporting results properly. The methodological backbone behind my final-year project.
-          </p>
-        </div>
-      </div>
-
-      <!-- Creative capstone -->
-      <div class="reveal">
-        <div class="card panel rounded-2xl p-7 h-full">
-          <div class="text-3xl mb-4">🕹️</div>
-          <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
-          <h3 class="display text-xl font-bold mt-2 mb-3">Creative Computing Capstone</h3>
-          <p class="dim text-sm leading-relaxed">
-            An interactive media piece blending code and design — carrying forward the game-dev and
-            audio-software work from earlier years into a more ambitious, polished experience.
-          </p>
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <!-- MEDIA: replace src with your creative capstone footage -->
+          <video src="Videos/Creative Capstone.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Creative Computing Capstone</h3>
+            <p class="dim text-sm leading-relaxed">
+              An interactive media piece blending code and design — carrying forward the game-dev and
+              audio-software work from earlier years into a more ambitious, polished experience.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -338,6 +375,12 @@
     </div>
   </section>
 
+  <!-- ===== IMAGE MODAL (click-to-zoom for .expandable photos) ===== -->
+  <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
+    <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
+    <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
+  </div>
+
   <!-- ===== FOOTER ===== -->
   <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
     <p class="mono">&copy; 2025 Hamza Rahman · Final boss: the dissertation.</p>
@@ -350,6 +393,21 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Click-to-zoom image modal (for any img with class "expandable") */
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModal = document.getElementById('closeModal');
+    document.querySelectorAll('.expandable').forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modalImg.src = img.src;
+      });
+    });
+    function hideModal() { modal.classList.add('hidden'); modalImg.src = ''; }
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
     /* Count-up stats */
     const countObserver = new IntersectionObserver((entries) => {
