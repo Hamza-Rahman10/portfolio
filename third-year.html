@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Third Year | Hamza Rahman</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --panel-border: #e6e8ee;
+      --text: #16181f;
+      --text-dim: #5b606e;
+      --accent: #2d4cdb;
+      --accent2: #0e8a8a;
+      --hero: #0d1424;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    .display { font-family: 'Sora', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .dim { color: var(--text-dim); }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .grad-text {
+      background: linear-gradient(110deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    /* Cards: subtle, professional lift */
+    .card {
+      transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px -22px rgba(45,76,219,.35);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(247,248,250,.8);
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .timeline-line { background: linear-gradient(var(--accent), var(--accent2)); }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="display text-lg font-bold tracking-tight">
+        Hamza<span class="grad-text">.</span>Rahman
+      </a>
+      <nav>
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm justify-end">
+          <li><a href="index.html" class="dim hover:text-[var(--accent)] transition">Home</a></li>
+          <li><a href="foundation.html" class="dim hover:text-[var(--accent)] transition">Foundation</a></li>
+          <li><a href="first-year.html" class="dim hover:text-[var(--accent)] transition">First Year</a></li>
+          <li><a href="second-year.html" class="dim hover:text-[var(--accent)] transition">Second Year</a></li>
+          <li><a href="internship.html" class="dim hover:text-[var(--accent)] transition">Internship</a></li>
+          <li><a href="third-year.html" class="text-[var(--accent)] font-semibold">Third Year</a></li>
+          <li><a href="3D-models.html" class="dim hover:text-[var(--accent)] transition">Gallery</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
+    <canvas id="hero-canvas"></canvas>
+    <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-5 w-full pt-24 text-white">
+      <p class="mono text-sm tracking-[0.3em] mb-5 reveal" style="color:#7fe3e3;">// FINAL YEAR — BSc COMPUTER SCIENCE</p>
+      <h1 class="display font-extrabold leading-[0.95] tracking-tight reveal" style="font-size: clamp(2.8rem, 9vw, 6.5rem);">
+        Third<br>
+        <span class="grad-text">Year.</span>
+      </h1>
+      <p class="max-w-2xl mt-8 text-lg reveal" style="color:#c5c9d6; transition-delay:.1s">
+        The capstone of my degree at Goldsmiths — where systems engineering, machine
+        intelligence and creative computing converge. The year I take everything from
+        foundation to internship and ship it as real, finished work.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-10 reveal" style="transition-delay:.2s">
+        <a href="#projects" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
+          Explore the work
+        </a>
+        <a href="#dissertation" class="px-7 py-3 rounded-full border border-white/25 text-white font-medium hover:bg-white/10 transition">
+          Final-year project
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 max-w-xl mt-16 reveal" style="transition-delay:.3s">
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="6">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">CORE MODULES</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="9">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">MONTHS BUILDING</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="100">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">% COMMITTED</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-24">
+    <div class="grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 reveal">
+        <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">01 — OVERVIEW</p>
+        <h2 class="display text-4xl font-bold leading-tight">The year it<br>all comes<br><span class="grad-text">together.</span></h2>
+      </div>
+      <div class="md:col-span-8 reveal" style="transition-delay:.1s">
+        <p class="text-lg leading-relaxed dim">
+          In my final year I'm focused on turning theory into shipped products. My modules push
+          deep into machine learning, distributed systems and advanced software engineering, while
+          my final-year project lets me design and build something substantial end-to-end —
+          architecture, implementation, testing and evaluation.
+        </p>
+        <p class="text-lg leading-relaxed dim mt-5">
+          Alongside the technical depth, I'm carrying forward the creative-computing identity that
+          runs through my whole degree: real-time graphics, interactive media and experiments at
+          the edge of engineering and art. The goal this year is a portfolio of polished,
+          industry-ready work backed by the DevOps experience I gained at Skyports.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS / MODULES ===== -->
+  <section id="projects" class="max-w-6xl mx-auto px-5 py-10">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — MODULES &amp; PROJECTS</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">Selected work</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Featured: Final project -->
+      <div class="md:col-span-2 reveal">
+        <div class="card panel rounded-2xl p-8 h-full flex flex-col justify-between" id="dissertation">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="mono text-xs px-3 py-1 rounded-full" style="background: rgba(45,76,219,.1); color: var(--accent);">FINAL-YEAR PROJECT</span>
+              <span class="mono text-xs dim">FEATURED</span>
+            </div>
+            <h3 class="display text-3xl font-bold mb-3">Final-Year Project &amp; Dissertation</h3>
+            <p class="dim leading-relaxed max-w-2xl">
+              A substantial individual project taking a real problem from proposal through to a
+              working, evaluated system. It brings together everything from my degree — software
+              architecture, rigorous testing, research methodology and a written dissertation
+              documenting the design decisions, implementation and results.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-6">
+            <span class="mono text-xs px-3 py-1 rounded-full panel">Research</span>
+            <span class="mono text-xs px-3 py-1 rounded-full panel">System Design</span>
+            <span class="mono text-xs px-3 py-1 rounded-full panel">Evaluation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Machine Learning -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">🧠</div>
+          <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Machine Learning &amp; Data Science</h3>
+          <p class="dim text-sm leading-relaxed">
+            Building and training models on real datasets — supervised and unsupervised learning,
+            neural networks, evaluation metrics and the full pipeline of cleaning, feature
+            engineering and tuning. Focus on understanding why a model works, not just running it.
+          </p>
+        </div>
+      </div>
+
+      <!-- Distributed Systems -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">🛰️</div>
+          <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Distributed &amp; Cloud Systems</h3>
+          <p class="dim text-sm leading-relaxed">
+            Designing software that scales across machines — concurrency, fault tolerance,
+            containerisation and deployment. Extends my Skyports DevOps experience with Azure,
+            Docker, Terraform and CI/CD into a deeper architectural understanding.
+          </p>
+        </div>
+      </div>
+
+      <!-- Advanced Software Engineering -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">⚙️</div>
+          <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Advanced Software Engineering</h3>
+          <p class="dim text-sm leading-relaxed">
+            Working at scale with clean architecture, design patterns, testing strategies and
+            collaborative version control. Emphasis on writing maintainable, well-documented code
+            that a team could pick up and extend.
+          </p>
+        </div>
+      </div>
+
+      <!-- Real-time Graphics -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">🎨</div>
+          <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Real-Time 3D &amp; Graphics</h3>
+          <p class="dim text-sm leading-relaxed">
+            Pushing creative computing further with interactive 3D using Three.js and shader work —
+            building on my Godot game projects to explore rendering, lighting and procedural
+            visuals in the browser. (The hero animation above is a small taste.)
+          </p>
+        </div>
+      </div>
+
+      <!-- Applied AI / research -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">🔬</div>
+          <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Applied AI &amp; Research Methods</h3>
+          <p class="dim text-sm leading-relaxed">
+            Research-led work: reading papers critically, forming hypotheses, designing experiments
+            and reporting results properly. The methodological backbone behind my final-year project.
+          </p>
+        </div>
+      </div>
+
+      <!-- Creative capstone -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <div class="text-3xl mb-4">🕹️</div>
+          <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
+          <h3 class="display text-xl font-bold mt-2 mb-3">Creative Computing Capstone</h3>
+          <p class="dim text-sm leading-relaxed">
+            An interactive media piece blending code and design — carrying forward the game-dev and
+            audio-software work from earlier years into a more ambitious, polished experience.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== JOURNEY TIMELINE ===== -->
+  <section class="max-w-4xl mx-auto px-5 py-24">
+    <div class="reveal mb-14">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">03 — THE JOURNEY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">From foundation<br>to final year</h2>
+    </div>
+
+    <div class="relative pl-8">
+      <div class="absolute left-0 top-2 bottom-2 w-[2px] timeline-line rounded-full"></div>
+      <div class="space-y-10">
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FOUNDATION</span>
+          <h4 class="display text-lg font-bold mt-1">Building the fundamentals</h4>
+          <p class="dim text-sm mt-1">First steps into programming, problem-solving and the maths behind computing.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FIRST YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Core computer science</h4>
+          <p class="dim text-sm mt-1">Languages, data structures and the foundations of software development.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">SECOND YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Web, C++ &amp; game development</h4>
+          <p class="dim text-sm mt-1">Dynamic web apps, extended C++, and creative game projects in Godot.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">INTERNSHIP — SKYPORTS</span>
+          <h4 class="display text-lg font-bold mt-1">Real-world engineering</h4>
+          <p class="dim text-sm mt-1">DevOps, QA and IT infrastructure with Azure, Docker, Terraform and CI/CD.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-5 h-5 rounded-full ring-4 ring-[var(--bg)]" style="background: linear-gradient(135deg, var(--accent), var(--accent2));"></div>
+          <span class="mono text-xs text-[var(--accent)]">THIRD YEAR — YOU ARE HERE</span>
+          <h4 class="display text-lg font-bold mt-1">Shipping finished work</h4>
+          <p class="dim text-sm mt-1">ML, distributed systems and a substantial final-year project that ties it all together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="panel rounded-3xl p-12 text-center reveal">
+      <h2 class="display text-3xl md:text-4xl font-bold mb-4">Want to see the rest of the journey?</h2>
+      <p class="dim max-w-xl mx-auto mb-8">Explore my earlier years, my internship at Skyports, and the full photo &amp; 3D gallery.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="internship.html" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">View Internship</a>
+        <a href="3D-models.html" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">Photo Gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
+    <p class="mono">&copy; 2025 Hamza Rahman · Final boss: the dissertation.</p>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Count-up stats */
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.count;
+        let cur = 0; const step = Math.max(1, Math.round(target / 40));
+        const tick = () => {
+          cur += step;
+          if (cur >= target) el.textContent = target;
+          else { el.textContent = cur; requestAnimationFrame(tick); }
+        };
+        tick(); countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    /* Three.js hero — calm particle field + wireframe icosahedron */
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000);
+      camera.position.z = 60;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      const COUNT = 700;
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT * 3; i++) positions[i] = (Math.random() - 0.5) * 140;
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.45, color: 0x4f6cff, transparent: true, opacity: 0.7 }));
+      scene.add(points);
+
+      const ico = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(16, 1),
+        new THREE.MeshBasicMaterial({ color: 0x2bc4c4, wireframe: true, transparent: true, opacity: 0.28 })
+      );
+      scene.add(ico);
+
+      let mx = 0, my = 0;
+      addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; });
+
+      (function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0005; points.rotation.x += 0.00025;
+        ico.rotation.y += 0.0022; ico.rotation.x += 0.0011;
+        camera.position.x += (mx * 10 - camera.position.x) * 0.04;
+        camera.position.y += (-my * 10 - camera.position.y) * 0.04;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      })();
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    })();
+  </script>
+</body>
+</html>
