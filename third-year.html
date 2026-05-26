@@ -171,23 +171,11 @@
       <h2 class="display text-4xl md:text-5xl font-bold">Selected work</h2>
     </div>
 
-    <!--
-      ============================================================
-      HOW TO ADD YOUR OWN MEDIA
-      ------------------------------------------------------------
-      • VIDEO:  <video src="Videos/yourfile.mp4" class="w-full h-48 object-cover" controls muted loop></video>
-      • PHOTO:  <img src="Images/yourfile.jpg" alt="..." class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
-                (the "expandable" class makes it pop out fullscreen on click)
-      • Put media FIRST inside the .card div, then keep the text inside the <div class="p-7"> below it.
-      • Just drop your files into your existing Images/ and Videos/ folders and rename below.
-      ============================================================
-    -->
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Featured: Final project (wide card, taller media) -->
       <div class="md:col-span-2 reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full flex flex-col">
-          <!-- MEDIA: replace src with your final-project demo video -->
           <video src="Videos/Final Year Project.mp4" class="w-full h-64 object-cover bg-black" controls muted loop></video>
           <div class="p-8 flex flex-col justify-between flex-1" id="dissertation">
             <div>
@@ -197,87 +185,87 @@
               </div>
               <h3 class="display text-3xl font-bold mb-3">Final-Year Project &amp; Dissertation</h3>
               <p class="dim leading-relaxed max-w-2xl">
-                A substantial individual project taking a real problem from proposal through to a
-                working, evaluated system. It brings together everything from my degree — software
-                architecture, rigorous testing, research methodology and a written dissertation
-                documenting the design decisions, implementation and results.
+                This project is a third-person action game prototype developed in Unity and set within a dystopian futuristic wasteland. 
+                The game follows a young survivor named Simon as he navigates a collapsing world filled with hostile soldiers, destruction, and scarce resources. 
+                The project focuses on creating engaging melee combat through the use of state machine-driven player mechanics, enemy AI behaviour, dodging, and targeting systems. 
+                A central gameplay feature is the dynamic balance between speed and strength, allowing players to alter their combat style strategically by sacrificing one attribute to enhance the other. 
+                Through its gameplay systems, environmental storytelling, and narrative cutscenes, the project aims to create an immersive and tense survival experience.
+
               </p>
             </div>
             <div class="flex flex-wrap gap-2 mt-6">
-              <span class="mono text-xs px-3 py-1 rounded-full panel">Research</span>
-              <span class="mono text-xs px-3 py-1 rounded-full panel">System Design</span>
-              <span class="mono text-xs px-3 py-1 rounded-full panel">Evaluation</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Game Development</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Unity</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">GitLabs</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Machine Learning (PHOTO, expandable) -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
-          <!-- MEDIA: replace src with your ML screenshot/graph -->
-          <img src="Images/Machine Learning.jpg" alt="Machine learning project"
-               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <video src="Third Year photos/Data and Machine Learning/Test Demo 4 Gesture control test.mp4" class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition" controls muted></video>
           <div class="p-7">
             <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
-            <h3 class="display text-xl font-bold mt-2 mb-3">Machine Learning &amp; Data Science</h3>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Data &amp; Machine Learning</h3>
             <p class="dim text-sm leading-relaxed">
-              Building and training models on real datasets — supervised and unsupervised learning,
-              neural networks, evaluation metrics and the full pipeline of cleaning, feature
-              engineering and tuning. Focus on understanding why a model works, not just running it.
+              Embodied Digital Organism is a real-time interactive installation where your body controls a living particle creature through your webcam. 
+              Using Google's MediaPipe to detect body landmarks, the system translates gestures like raising arms, lowering them, bringing hands together, 
+              moving side to side into the behaviour of an amoeba-like creature built from hundreds of particles, complete with a glowing core, 
+              flowing tentacles that reach toward your hands, and rainbow colours that shift with movement.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Distributed Systems (PHOTO, expandable) -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
-          <!-- MEDIA: replace src with your systems/architecture diagram -->
-          <img src="Images/Distributed Systems.jpg" alt="Distributed systems project"
+          <video src="Third Year photos\Game AI Programming\Iteration 2 better survival rate.mp4" class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition" controls muted></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">AI</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Game AI Programming</h3>
+            <p class="dim text-sm leading-relaxed">
+              This project focuses on designing and evaluating an AI-controlled agent within a game environment using Behaviour Trees and pathfinding techniques. 
+              The aim is to create an intelligent Pac-Man AI capable of balancing multiple objectives, such as collecting pellets, 
+              avoiding ghosts, and adapting to changing game states. Through iterative development and automated testing, 
+              the project explores how different AI behaviours impact overall performance, survival, and score efficiency. 
+              The final solution is supported by technical analysis, behaviour diagrams, testing results, source control evidence, 
+              and critical reflection on the strengths and limitations of the implemented AI system.
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Third Year photos\Interaction Design\1_dashboard-1.png" alt="Software engineering project"
                class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
           <div class="p-7">
             <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
-            <h3 class="display text-xl font-bold mt-2 mb-3">Distributed &amp; Cloud Systems</h3>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Interaction Design</h3>
             <p class="dim text-sm leading-relaxed">
-              Designing software that scales across machines — concurrency, fault tolerance,
-              containerisation and deployment. Extends my Skyports DevOps experience with Azure,
-              Docker, Terraform and CI/CD into a deeper architectural understanding.
+              This project explores the design of an AI-supported educational platform that helps university students improve self-regulated learning and metacognitive awareness through a structured, 
+              visual workflow rather than traditional text-only AI chat. The system combines AI-generated summaries, mindmap-based interaction, adaptive planning, and lightweight reflection prompts to help students better understand concepts, 
+              organise study tasks, and monitor their own learning progress. Through iterative prototyping, 
+              usability testing, and behavioural analysis, 
+              the project investigates how visual knowledge structures and mixed-initiative AI interactions can reduce cognitive overload and create a more effective and engaging university learning experience.
+
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Advanced Software Engineering (PHOTO, expandable) -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
-          <!-- MEDIA: replace src with a screenshot of your codebase/app -->
-          <img src="Images/Software Engineering.jpg" alt="Software engineering project"
-               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
-          <div class="p-7">
-            <span class="mono text-xs text-[var(--accent2)]">SYSTEMS</span>
-            <h3 class="display text-xl font-bold mt-2 mb-3">Advanced Software Engineering</h3>
-            <p class="dim text-sm leading-relaxed">
-              Working at scale with clean architecture, design patterns, testing strategies and
-              collaborative version control. Emphasis on writing maintainable, well-documented code
-              that a team could pick up and extend.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Real-time Graphics (VIDEO) -->
-      <div class="reveal">
-        <div class="card panel rounded-2xl overflow-hidden h-full">
-          <!-- MEDIA: replace src with your Three.js / graphics demo clip -->
-          <video src="Videos/Real-Time Graphics.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <video src="Third Year photos/Introduction to modelling and animation/Chaos Emerald.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
           <div class="p-7">
             <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
-            <h3 class="display text-xl font-bold mt-2 mb-3">Real-Time 3D &amp; Graphics</h3>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Introduction to Modeling and Animation</h3>
             <p class="dim text-sm leading-relaxed">
-              Pushing creative computing further with interactive 3D using Three.js and shader work —
+              Pushing creative computing further with interactive 3D using Autodesk Maya and Blender 
               building on my Godot game projects to explore rendering, lighting and procedural
-              visuals in the browser. (The hero animation above is a small taste.)
+              visuals in the browser. (The chaos emerald animation above is a small taste.)
             </p>
           </div>
         </div>
@@ -286,15 +274,17 @@
       <!-- Applied AI / research (PHOTO, expandable) -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
-          <!-- MEDIA: replace src with a figure/poster from your research -->
-          <img src="Images/Applied AI.jpg" alt="Applied AI research"
+          <img src="Third Year photos/Virtual Reality/Live Demo.mp4" alt="Virtual Reality & Research Methods"
                class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
           <div class="p-7">
             <span class="mono text-xs text-[var(--accent2)]">AI / ML</span>
-            <h3 class="display text-xl font-bold mt-2 mb-3">Applied AI &amp; Research Methods</h3>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Virtual Reality &amp; 3D Environment </h3>
             <p class="dim text-sm leading-relaxed">
-              Research-led work: reading papers critically, forming hypotheses, designing experiments
-              and reporting results properly. The methodological backbone behind my final-year project.
+              This project is an interactive VR anatomy lab developed in Unity that allows users to explore the human body within an immersive virtual environment. 
+              The experience was designed to make learning anatomy more engaging and accessible through 3D spatial interaction, 
+              enabling users to examine skeletal structures and anatomical elements in greater detail than traditional learning methods. 
+              The project incorporates VR interaction systems, world-space UI, anatomical labeling, 
+              and optimised 3D assets to create a cohesive educational experience that combines both technical implementation and visual design.
             </p>
           </div>
         </div>
@@ -375,13 +365,7 @@
     </div>
   </section>
 
-  <!-- ===== MEDIA GALLERY ===== -->
-  <!--
-    EXTRA PHOTOS & VIDEOS
-    • Photos use class "expandable" so they pop out fullscreen on click.
-    • Add or remove tiles freely — the grid reflows automatically.
-    • Swap the src filenames for your real files in Images/ and Videos/.
-  -->
+
   <section class="max-w-6xl mx-auto px-5 py-24">
     <div class="reveal mb-12">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">04 — GALLERY</p>
@@ -393,52 +377,52 @@
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 1.jpg" alt="Gallery photo 1"
+        <img src="Third Year photos/Final project/Ending.jpg" alt="Gallery photo 1"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
       <!-- Video (spans 2 columns for variety) -->
       <div class="card panel rounded-xl overflow-hidden col-span-2">
-        <video src="Videos/Gallery 1.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+        <video src="Third Year photos/Introduction to modelling and animation/FW_Sword_10001.png" class="w-full h-44 object-cover bg-black" controls muted loop></video>
       </div>
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 2.jpg" alt="Gallery photo 2"
+        <img src="Third Year photos/Final project/MainMenu.jpg" alt="Gallery photo 2"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 3.jpg" alt="Gallery photo 3"
+        <img src="Third Year photos/Interaction Design/2_my lecture2-1.png" alt="Gallery photo 3"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 4.jpg" alt="Gallery photo 4"
+        <img src="Third Year photos/Introduction to modelling and animation/Chaos_Emerald_sonic_10001_wireframe.png" alt="Gallery photo 4"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
       <!-- Video -->
       <div class="card panel rounded-xl overflow-hidden">
-        <video src="Videos/Gallery 2.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+        <video src="Third Year photos/Final project/Test_Runs/test run 4 dodging test.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
       </div>
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 5.jpg" alt="Gallery photo 5"
+        <img src="Third Year photos/Interaction Design/4_reflection3-1.png" alt="Gallery photo 5"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
       <!-- Video (spans 2 columns) -->
       <div class="card panel rounded-xl overflow-hidden col-span-2">
-        <video src="Videos/Gallery 3.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+        <video src="Third Year photos/Final project/poster1.jpg" class="w-full h-44 object-cover bg-black" controls muted loop></video>
       </div>
 
       <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
-        <img src="Images/Gallery 6.jpg" alt="Gallery photo 6"
+        <img src="Third Year photos/Final project/Test_Runs/test run 6 full strength.mp4" alt="Gallery photo 6"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
