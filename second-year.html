@@ -2,208 +2,527 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Second Year | Hamza Rahman</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
 
-  <!-- Header / Navbar -->
-  <header class="bg-white shadow">
-    <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Hamza Rahman</h1>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --panel-border: #e6e8ee;
+      --text: #16181f;
+      --text-dim: #5b606e;
+      --accent: #2d4cdb;
+      --accent2: #0e8a8a;
+      --hero: #0d1424;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    .display { font-family: 'Sora', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .dim { color: var(--text-dim); }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .grad-text {
+      background: linear-gradient(110deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    .card {
+      transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px -22px rgba(45,76,219,.35);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(247,248,250,.8);
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .timeline-line { background: linear-gradient(var(--accent), var(--accent2)); }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="display text-lg font-bold tracking-tight">
+        Hamza<span class="grad-text">.</span>Rahman
+      </a>
       <nav>
-        <ul class="flex space-x-6 text-sm">
-          <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
-          <li><a href="foundation.html" class="hover:text-blue-600">Foundation Year</a></li>
-          <li><a href="first-year.html" class="hover:text-blue-600">First Year</a></li>
-          <li><a href="second-year.html" class="text-blue-600 font-semibold">Second Year</a></li>
-          <li><a href="internship.html" class="hover:text-blue-600">Internship</a></li>
-          <li><a href="third-year.html" class="hover:text-blue-600">Third Year</a></li>
-          <li><a href="3D-models.html" class="hover:text-blue-600">Photo Gallery</a></li>
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm justify-end">
+          <li><a href="index.html" class="dim hover:text-[var(--accent)] transition">Home</a></li>
+          <li><a href="foundation.html" class="dim hover:text-[var(--accent)] transition">Foundation</a></li>
+          <li><a href="first-year.html" class="dim hover:text-[var(--accent)] transition">First Year</a></li>
+          <li><a href="second-year.html" class="text-[var(--accent)] font-semibold">Second Year</a></li>
+          <li><a href="internship.html" class="dim hover:text-[var(--accent)] transition">Internship</a></li>
+          <li><a href="third-year.html" class="dim hover:text-[var(--accent)] transition">Third Year</a></li>
+          <li><a href="3D-models.html" class="dim hover:text-[var(--accent)] transition">Gallery</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative bg-blue-50 py-12 bg-cover bg-center" 
-    style="background-image: url('Images/Goldsmiths2.jpeg');">
-    <div class="absolute inset-0 bg-blue-900/50"></div>
-    <div class="relative max-w-4xl mx-auto text-center px-4 text-white">
-      <h2 class="text-3xl font-semibold mb-2">Second Year Overview</h2>
-      <p class="max-w-xl mx-auto">
-        In my second year, I used current frameworks to create online apps while also learning about cloud deployment and scalability.  I improved my grasp of algorithms and data structures in order to be more efficient while solving problems and writing code.  Working on cooperative projects also helped me improve my collaboration, version control, and program design abilities. I have also enhanced on my game development skills using Godot Engine and C#.
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
+    <canvas id="hero-canvas"></canvas>
+    <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-5 w-full pt-24 text-white">
+      <p class="mono text-sm tracking-[0.3em] mb-5 reveal" style="color:#7fe3e3;">// YEAR TWO — BSc COMPUTER SCIENCE</p>
+      <h1 class="display font-extrabold leading-[0.95] tracking-tight reveal" style="font-size: clamp(2.8rem, 9vw, 6.5rem);">
+        Second<br>
+        <span class="grad-text">Year.</span>
+      </h1>
+      <p class="max-w-2xl mt-8 text-lg reveal" style="color:#c5c9d6; transition-delay:.1s">
+        The year I started building real things. Dynamic web applications, extended C++ for
+        creative audio software, two full Godot games, embedded electronics — and a side-quest
+        into comics and graphic novels. Engineering met creative computing head-on.
       </p>
+      <div class="flex flex-wrap gap-4 mt-10 reveal" style="transition-delay:.2s">
+        <a href="#projects" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
+          Explore the work
+        </a>
+        <a href="#gallery" class="px-7 py-3 rounded-full border border-white/25 text-white font-medium hover:bg-white/10 transition">
+          Jump to media
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 max-w-xl mt-16 reveal" style="transition-delay:.3s">
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="6">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">MODULES</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="2">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">GAMES SHIPPED</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#7fe3e3" data-count="4">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">LANGUAGES USED</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Content Section -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h3 class="text-2xl font-bold mb-6">Key Modules & Projects</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- ===== OVERVIEW ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-24">
+    <div class="grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 reveal">
+        <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">01 — OVERVIEW</p>
+        <h2 class="display text-4xl font-bold leading-tight">Theory met<br><span class="grad-text">practice.</span></h2>
+      </div>
+      <div class="md:col-span-8 reveal" style="transition-delay:.1s">
+        <p class="text-lg leading-relaxed dim">
+          In my second year I used current frameworks to build online apps while learning about
+          cloud deployment and scalability. I sharpened my grip on algorithms and data structures
+          to write more efficient code and solve problems more cleanly.
+        </p>
+        <p class="text-lg leading-relaxed dim mt-5">
+          Working on collaborative projects pushed my abilities in version control, software
+          design and team workflow. Alongside the engineering, I doubled down on game development
+          with the Godot Engine and C#, plus C++ for creative audio software — building a portfolio
+          of shipped projects rather than just exercises.
+        </p>
+      </div>
+    </div>
+  </section>
 
-      <!-- Programming Project -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Dynamic web applications</h4>
-          <p class="text-sm text-gray-700">
-            The technology behind client-server applications is the main topic of this subject.  I now understand how websites and web apps function and how data may be utilised to make such apps behave dynamically. The usage of database systems, including an introduction to data modelling and database implementation in SQL and alternatives like No SQL, is a major component of this topic.
-          </p>
+  <!-- ===== PROJECTS / MODULES ===== -->
+  <section id="projects" class="max-w-6xl mx-auto px-5 py-10">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — MODULES &amp; PROJECTS</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">Selected work</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Featured: Max Slinger 3D (wide, with dev log video) -->
+      <div class="md:col-span-2 reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full flex flex-col">
+          <video src="Videos/Dev Log.mp4" class="w-full h-64 object-cover bg-black" controls muted loop></video>
+          <div class="p-8 flex flex-col justify-between flex-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="mono text-xs px-3 py-1 rounded-full" style="background: rgba(45,76,219,.1); color: var(--accent);">CREATIVE GAME ENGINE</span>
+                <span class="mono text-xs dim">FEATURED</span>
+              </div>
+              <h3 class="display text-3xl font-bold mb-3">Max Slinger 3D</h3>
+              <p class="dim leading-relaxed max-w-2xl">
+                Built in the Godot Engine — a physics-based gaming experience that lives or dies
+                on precision and timing. The project meant working with 3D environments, character
+                movement and object interactions, using Godot's physics engine for smooth, dynamic
+                play. It gave me real experience in 3D scene construction, collision handling and
+                camera control, deepening my understanding of game design and user feedback in 3D.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-6">
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Godot</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">GDScript</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">3D Physics</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Extended C++</h4>
-          <p class="text-sm text-gray-700">
-            Using sophisticated methods to implement programs, such template programming, polymorphism, and lambda functions. Examine, expand, and apply current C++ code bases created for creative scenarios to address issues.
-          </p>
+      <!-- Dynamic Web Applications -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Dynamic Web Applications.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">WEB</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Dynamic Web Applications</h3>
+            <p class="dim text-sm leading-relaxed">
+              The technology behind client-server applications — how websites and web apps actually
+              function, and how data is used to make them behave dynamically. Heavy focus on
+              database systems: data modelling and implementation in SQL alongside NoSQL alternatives.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Data & Algorithms -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Creative game engine development</h4>
-          <p class="text-sm text-gray-700">
-            I used the Godot Engine to build Max Slinger 3D, with the goal of creating a physics-based gaming experience that relied heavily on precision and time.  The project entailed working with 3D environments, character movement, and item interactions, all while utilising Godot's physics engine to generate smooth and dynamic dynamics.  This project provided me with great experience in 3D scene construction, collision handling, and camera control, which helped me better grasp game design and user feedback in three dimensions.
-          </p>
+      <!-- Extended C++ / DJ Application -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/2 DeckGUI.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">C++ AUDIO</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Extended C++ · DJ Application</h3>
+            <p class="dim text-sm leading-relaxed">
+              Implementing programs with sophisticated techniques — template programming,
+              polymorphism, lambda functions. Examining, extending and applying existing C++ code
+              bases written for creative scenarios, including building a working two-deck DJ
+              application with a custom GUI.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Group Project -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Creative embedded programming</h4>
-          <p class="text-sm text-gray-700">
-            provides a foundation for me to get a grasp of microcontrollers and how they integrate within a larger computer and creative setting. It will cover fundamental electronics, sensor systems, and real-time software development using the highly typed compiled language C++.
-          </p>
+      <!-- Whiskers of War -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Whiskers of War Dev Log.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">CREATIVE COMPUTING</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Whiskers of War</h3>
+            <p class="dim text-sm leading-relaxed">
+              A second Godot game, built around quick decisions and evocative storytelling on the
+              theme of "On and Off." Used Godot's node-based architecture and GDScript for opponent
+              behaviour, player interactions and environmental design — exploring binary states as
+              both a mechanic and a metaphor.
+            </p>
+          </div>
         </div>
       </div>
 
-            <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Creative Computing Project 2</h4>
-          <p class="text-sm text-gray-700">
-            Using the Godot Engine, I created Whiskers of War with the goal of producing an interesting gaming experience centred on quick decisions and evocative storytelling.  I experimented with Godot's node-based architecture during development, wrote GDScript scripts, and implemented features including opponent behaviour, player interactions, and environmental design using the theme On and Off. In our digital age, the terms "on" and "off" are more than just binary states; they are fundamental aspects that create technology, art, and human connection.  These two states control anything from basic electrical switches to complicated computing algorithms.
-          </p>
+      <!-- Creative Embedded Programming -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <div class="w-full h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #1a2540, #0e8a8a);">
+            <div class="text-5xl">🔌</div>
+          </div>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">EMBEDDED</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Creative Embedded Programming</h3>
+            <p class="dim text-sm leading-relaxed">
+              A foundation in microcontrollers and how they integrate within a larger computing
+              and creative setting. Covered fundamental electronics, sensor systems and real-time
+              software development using strongly-typed compiled C++.
+            </p>
+          </div>
         </div>
       </div>
 
-            <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Comics and graphics novel </h4>
-          <p class="text-sm text-gray-700">
-            I've mastered the essentials of telling tales via images, including how to simplify and clarify concepts, develop consistent recognised characters, and take those characters on a trip across comic panels.  These seminars are geared for students with varying degrees of writing and illustration expertise.
-          </p>
+      <!-- Game projects JavaScript -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Whiskers of War Footage.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">GAMES</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Game Projects · JavaScript</h3>
+            <p class="dim text-sm leading-relaxed">
+              In-engine footage from Whiskers of War alongside complementary JavaScript game
+              experiments — exploring 2D mechanics, interaction loops and the contrast between
+              engine-driven and browser-driven game development.
+            </p>
+          </div>
         </div>
       </div>
 
-                        <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/2 DeckGUI.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">C++ DJ Application</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-          <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Dev Log.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Max Slinger Dev Log</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Final comic 1.jpg" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Creating Comics and Graphics Novels</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Whiskers of War Dev Log.mp4" controls muted loop></video> 
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Whiskers of War dev log</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                      <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Whiskers of War Footage.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Game projects JavaScript</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                      <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Dynamic Web Applications.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Dynamic Web Applications</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Comics and Graphic Novels -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Final comic 1.jpg" alt="Comic page"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">CREATIVE</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Comics &amp; Graphic Novels</h3>
+            <p class="dim text-sm leading-relaxed">
+              The essentials of telling stories through images — simplifying and clarifying ideas,
+              developing recognisable characters, and carrying them through a journey across comic
+              panels. A change of pace alongside the engineering modules, sharpening visual
+              storytelling.
+            </p>
+          </div>
         </div>
       </div>
 
     </div>
   </section>
 
-    <!-- Modal -->
-  <div id="imageModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <span id="closeModal" class="absolute top-6 right-8 text-white text-3xl cursor-pointer hover:text-gray-300">&times;</span>
-    <img id="modalImg" class="max-w-4xl max-h-[80vh] rounded-lg shadow-lg border border-gray-300" src="" alt="">
+  <!-- ===== JOURNEY TIMELINE ===== -->
+  <section class="max-w-4xl mx-auto px-5 py-24">
+    <div class="reveal mb-14">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">03 — THE JOURNEY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">From fundamentals<br>to building things</h2>
+    </div>
+
+    <div class="relative pl-8">
+      <div class="absolute left-0 top-2 bottom-2 w-[2px] timeline-line rounded-full"></div>
+      <div class="space-y-10">
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FOUNDATION</span>
+          <h4 class="display text-lg font-bold mt-1">Building the fundamentals</h4>
+          <p class="dim text-sm mt-1">First steps into programming, problem-solving and the maths behind computing.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FIRST YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Core computer science</h4>
+          <p class="dim text-sm mt-1">Languages, data structures and the foundations of software development.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-5 h-5 rounded-full ring-4 ring-[var(--bg)]" style="background: linear-gradient(135deg, var(--accent), var(--accent2));"></div>
+          <span class="mono text-xs text-[var(--accent)]">SECOND YEAR — YOU ARE HERE</span>
+          <h4 class="display text-lg font-bold mt-1">Web, C++ &amp; game development</h4>
+          <p class="dim text-sm mt-1">Dynamic web apps, extended C++, two Godot games, embedded electronics and comics.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">INTERNSHIP — SKYPORTS</span>
+          <h4 class="display text-lg font-bold mt-1">Real-world engineering</h4>
+          <p class="dim text-sm mt-1">DevOps, QA and IT infrastructure with Azure, Docker, Terraform and CI/CD.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">THIRD YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Shipping finished work</h4>
+          <p class="dim text-sm mt-1">ML, distributed systems and a substantial final-year project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="panel rounded-3xl p-12 text-center reveal">
+      <h2 class="display text-3xl md:text-4xl font-bold mb-4">See where it goes next</h2>
+      <p class="dim max-w-xl mx-auto mb-8">From my internship at Skyports to my final-year work — the journey continues.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="internship.html" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">View Internship</a>
+        <a href="third-year.html" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">Third Year</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEDIA GALLERY ===== -->
+  <!--
+    EXTRA PHOTOS & VIDEOS
+    • Photos use class "expandable" so they pop out fullscreen on click.
+    • Add or remove tiles freely — the grid reflows automatically.
+    • Swap the src filenames for your real files in Images/ and Videos/.
+  -->
+  <section id="gallery" class="max-w-6xl mx-auto px-5 py-24">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">04 — GALLERY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">More from the year</h2>
+      <p class="dim mt-3 max-w-xl">A few extra moments, screenshots and clips from my second-year work. Click any photo to view it full size.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal">
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 1.jpg" alt="Gallery photo 1"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video (spans 2 columns) -->
+      <div class="card panel rounded-xl overflow-hidden col-span-2">
+        <video src="Videos/Gallery 1.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 2.jpg" alt="Gallery photo 2"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 3.jpg" alt="Gallery photo 3"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 4.jpg" alt="Gallery photo 4"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <video src="Videos/Gallery 2.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 5.jpg" alt="Gallery photo 5"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+      <!-- Video (spans 2 columns) -->
+      <div class="card panel rounded-xl overflow-hidden col-span-2">
+        <video src="Videos/Gallery 3.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
+      </div>
+
+      <!-- Photo -->
+      <div class="card panel rounded-xl overflow-hidden">
+        <img src="Images/Gallery 6.jpg" alt="Gallery photo 6"
+             class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== IMAGE MODAL ===== -->
+  <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
+    <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
+    <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t text-center py-4 text-sm text-gray-500">
-    &copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
+    <p class="mono">&copy; 2025 Hamza Rahman · Player 1: still coding, still learning.</p>
   </footer>
 
-    <!-- (Java) Script -->
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    const images = document.querySelectorAll('.expandable');
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Click-to-zoom image modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
-
-    images.forEach(img => {
+    document.querySelectorAll('.expandable').forEach(img => {
       img.addEventListener('click', () => {
         modal.classList.remove('hidden');
         modalImg.src = img.src;
       });
     });
+    function hideModal() { modal.classList.add('hidden'); modalImg.src = ''; }
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    closeModal.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modalImg.src = '';
-    });
+    /* Count-up stats */
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.count;
+        let cur = 0; const step = Math.max(1, Math.round(target / 40));
+        const tick = () => {
+          cur += step;
+          if (cur >= target) el.textContent = target;
+          else { el.textContent = cur; requestAnimationFrame(tick); }
+        };
+        tick(); countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modalImg.src = '';
-      }
-    });
+    /* Three.js hero */
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000);
+      camera.position.z = 60;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      const COUNT = 700;
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT * 3; i++) positions[i] = (Math.random() - 0.5) * 140;
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.45, color: 0x4f6cff, transparent: true, opacity: 0.7 }));
+      scene.add(points);
+
+      const ico = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(16, 1),
+        new THREE.MeshBasicMaterial({ color: 0x2bc4c4, wireframe: true, transparent: true, opacity: 0.28 })
+      );
+      scene.add(ico);
+
+      let mx = 0, my = 0;
+      addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; });
+
+      (function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0005; points.rotation.x += 0.00025;
+        ico.rotation.y += 0.0022; ico.rotation.x += 0.0011;
+        camera.position.x += (mx * 10 - camera.position.x) * 0.04;
+        camera.position.y += (-my * 10 - camera.position.y) * 0.04;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      })();
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    })();
   </script>
-
 </body>
 </html>
