@@ -76,7 +76,6 @@
 
 <body class="antialiased">
 
-  <!-- ===== NAVBAR ===== -->
   <header class="fixed top-0 inset-x-0 z-50 nav-blur">
     <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
       <a href="index.html" class="display text-lg font-bold tracking-tight">
@@ -96,7 +95,6 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
   <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
     <canvas id="hero-canvas"></canvas>
     <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
@@ -118,7 +116,6 @@
     </div>
   </section>
 
-  <!-- ===== PROJECTS / KEY HIGHLIGHTS ===== -->
   <section id="projects" class="max-w-6xl mx-auto px-5 py-24">
     <div class="reveal mb-12">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">01 — KEY HIGHLIGHTS</p>
@@ -254,7 +251,6 @@
     </div>
   </section>
 
-  <!-- ===== JOURNEY TIMELINE ===== -->
   <section class="max-w-4xl mx-auto px-5 py-24">
     <div class="reveal mb-14">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — THE JOURNEY</p>
@@ -293,7 +289,6 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="panel rounded-3xl p-12 text-center reveal">
       <h2 class="display text-3xl md:text-4xl font-bold mb-4">See where it goes next</h2>
@@ -303,26 +298,21 @@
     </div>
   </section>
 
-  <!-- ===== IMAGE MODAL ===== -->
   <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
     <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
     <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
     <p class="mono">&copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.</p>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
-    /* Scroll reveal */
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* Click-to-zoom image modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
@@ -337,7 +327,6 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    /* Three.js hero — particles only, no central shape */
     (function () {
       const canvas = document.getElementById('hero-canvas');
       const scene = new THREE.Scene();

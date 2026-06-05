@@ -76,7 +76,6 @@
 
 <body class="antialiased">
 
-  <!-- ===== NAVBAR ===== -->
   <header class="fixed top-0 inset-x-0 z-50 nav-blur">
     <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
       <a href="index.html" class="display text-lg font-bold tracking-tight">
@@ -96,7 +95,6 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
   <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
     <canvas id="hero-canvas"></canvas>
     <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
@@ -135,7 +133,6 @@
     </div>
   </section>
 
-  <!-- ===== OVERVIEW ===== -->
   <section class="max-w-6xl mx-auto px-5 py-24">
     <div class="grid md:grid-cols-12 gap-10 items-start">
       <div class="md:col-span-4 reveal">
@@ -157,7 +154,6 @@
     </div>
   </section>
 
-  <!-- ===== PROJECTS / MODULES ===== -->
   <section id="projects" class="max-w-6xl mx-auto px-5 py-10">
     <div class="reveal mb-12">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — MODULES &amp; PROJECTS</p>
@@ -166,7 +162,6 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Featured: Max Slinger 2D (wide, with footage) -->
       <div class="md:col-span-2 reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full flex flex-col">
           <video src="Videos/Max Slinger 1.mp4" class="w-full h-64 object-cover bg-black" controls muted loop></video>
@@ -193,7 +188,6 @@
         </div>
       </div>
 
-      <!-- Designing Digital Interaction -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <img src="Images/Designing Digital interaction.png" alt="Designing digital interaction"
@@ -211,7 +205,6 @@
         </div>
       </div>
 
-      <!-- Front-end Web -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <div class="w-full h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #1a0e0a, #ff6b4a);">
@@ -229,7 +222,6 @@
         </div>
       </div>
 
-      <!-- Creative Computing Project -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <video src="Videos/Asteroids.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
@@ -245,7 +237,6 @@
         </div>
       </div>
 
-      <!-- Graphics -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <img src="Images/Graphics.png" alt="Graphics collage"
@@ -262,7 +253,6 @@
         </div>
       </div>
 
-      <!-- Identity, Environment and Agency -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <div class="w-full h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #f59e0b, #1a0e0a);">
@@ -280,7 +270,6 @@
         </div>
       </div>
 
-      <!-- Introduction to Programming -->
       <div class="reveal">
         <div class="card panel rounded-2xl overflow-hidden h-full">
           <video src="Videos/First game dev log.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
@@ -299,7 +288,6 @@
     </div>
   </section>
 
-  <!-- ===== JOURNEY TIMELINE ===== -->
   <section class="max-w-4xl mx-auto px-5 py-24">
     <div class="reveal mb-14">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">03 — THE JOURNEY</p>
@@ -343,7 +331,6 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="panel rounded-3xl p-12 text-center reveal">
       <h2 class="display text-3xl md:text-4xl font-bold mb-4">See where it goes next</h2>
@@ -357,26 +344,21 @@
 
 
 
-  <!-- ===== IMAGE MODAL ===== -->
   <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
     <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
     <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
     <p class="mono">&copy; 2025 Hamza Rahman · First Year</p>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
-    /* Scroll reveal */
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* Click-to-zoom image modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
@@ -391,7 +373,6 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    /* Count-up stats */
     const countObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
@@ -407,7 +388,6 @@
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
 
-    /* Three.js hero */
     (function () {
       const canvas = document.getElementById('hero-canvas');
       const scene = new THREE.Scene();
@@ -426,7 +406,6 @@
       const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.45, color: 0xff8a5b, transparent: true, opacity: 0.7 }));
       scene.add(points);
 
-      // First-year signature shape: Tetrahedron (simplest platonic solid — foundation)
       const ico = new THREE.Mesh(
         new THREE.TetrahedronGeometry(20, 0),
         new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true, transparent: true, opacity: 0.45 })

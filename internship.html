@@ -125,7 +125,6 @@
 
 <body class="antialiased">
 
-  <!-- ===== NAVBAR ===== -->
   <header class="fixed top-0 inset-x-0 z-50 nav-blur">
     <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
       <a href="index.html" class="display text-lg font-bold tracking-tight">
@@ -145,7 +144,6 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
   <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
     <canvas id="hero-canvas"></canvas>
     <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
@@ -185,7 +183,6 @@
     </div>
   </section>
 
-  <!-- ===== TECH STACK CHIPS (scannable for hiring managers) ===== -->
   <section class="max-w-6xl mx-auto px-5 py-20">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">01 — TECH STACK</p>
@@ -233,7 +230,6 @@
     </div>
   </section>
 
-  <!-- ===== THE PIPELINE (signature employer-facing visual) ===== -->
   <section id="pipeline" class="max-w-6xl mx-auto px-5 py-20">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">02 — THE PIPELINE I BUILT</p>
@@ -284,7 +280,6 @@
     </div>
   </section>
 
-  <!-- ===== DEVOPS ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">03 — DEVOPS</p>
@@ -321,7 +316,6 @@
     </div>
   </section>
 
-  <!-- ===== DEV QA ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">04 — DEV QA</p>
@@ -357,7 +351,6 @@
     </div>
   </section>
 
-  <!-- ===== DEV IT ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">05 — DEV IT</p>
@@ -394,7 +387,6 @@
     </div>
   </section>
 
-  <!-- ===== REFLECTION ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="reveal mb-10">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent)] mb-4">06 — REFLECTION</p>
@@ -428,7 +420,6 @@
     </div>
   </section>
 
-  <!-- ===== CONTACT / HIRE ME CTA ===== -->
   <section id="contact" class="max-w-6xl mx-auto px-5 py-20">
     <div class="panel rounded-3xl p-12 text-center reveal relative overflow-hidden">
       <div class="absolute inset-0 opacity-15 pointer-events-none" style="background: radial-gradient(circle at 30% 20%, var(--accent), transparent 50%), radial-gradient(circle at 70% 80%, var(--accent2), transparent 50%);"></div>
@@ -440,14 +431,11 @@
           Open to internships, placements and graduate roles — especially in cloud, software engineering or platform teams.
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
-          <!--
-            EMPLOYER CONTACT
-            Replace the mailto and the LinkedIn URL below with your real ones before you publish.
-          -->
-          <a href="mailto:your-email@example.com" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
+
+          <a href="hamza.rahman10@hotmail.com" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
             Get in touch
           </a>
-          <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">
+          <a href="https://www.linkedin.com/in/hamza-rahman10" target="_blank" rel="noopener" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">
             LinkedIn →
           </a>
           <a href="third-year.html" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">
@@ -458,26 +446,21 @@
     </div>
   </section>
 
-  <!-- ===== IMAGE MODAL ===== -->
   <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
     <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
     <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
     <p class="mono">&copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.</p>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
-    /* Scroll reveal */
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* Click-to-zoom modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
@@ -492,7 +475,6 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    /* Count-up stats */
     const countObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
@@ -527,7 +509,6 @@
       const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.5, color: 0x38bdf8, transparent: true, opacity: 0.75 }));
       scene.add(points);
 
-      // Internship signature shape: Torus (continuous DevOps loop)
       const torus = new THREE.Mesh(
         new THREE.TorusGeometry(14, 4, 14, 64),
         new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true, transparent: true, opacity: 0.38 })

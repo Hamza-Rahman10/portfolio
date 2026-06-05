@@ -46,7 +46,6 @@
       color: transparent;
     }
 
-    /* Scroll reveal */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -54,7 +53,6 @@
     }
     .reveal.show { opacity: 1; transform: translateY(0); }
 
-    /* Cards: subtle, professional lift */
     .card {
       transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s;
     }
@@ -98,7 +96,6 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
   <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
     <canvas id="hero-canvas"></canvas>
     <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
@@ -140,7 +137,6 @@
     </div>
   </section>
 
-  <!-- ===== OVERVIEW ===== -->
   <section class="max-w-6xl mx-auto px-5 py-24">
     <div class="grid md:grid-cols-12 gap-10 items-start">
       <div class="md:col-span-4 reveal">
@@ -163,7 +159,6 @@
     </div>
   </section>
 
-  <!-- ===== PROJECTS / MODULES ===== -->
   <section id="projects" class="max-w-6xl mx-auto px-5 py-10">
     <div class="reveal mb-12">
       <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — MODULES &amp; PROJECTS</p>
@@ -336,7 +331,6 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
   <section class="max-w-6xl mx-auto px-5 py-16">
     <div class="panel rounded-3xl p-12 text-center reveal">
       <h2 class="display text-3xl md:text-4xl font-bold mb-4">Want to see the rest of the journey?</h2>
@@ -358,52 +352,43 @@
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal">
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <img src="Third Year photos/Final project/Ending.jpg" alt="Gallery photo 1"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
-      <!-- Video (spans 2 columns for variety) -->
       <div class="card panel rounded-xl overflow-hidden col-span-2">
         <video src="Third Year photos\Introduction to modelling and animation\FW_Sword.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
       </div>
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <img src="Third Year photos/Final project/MainMenu.jpg" alt="Gallery photo 2"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <img src="Third Year photos/Interaction Design/2_my lecture2-1.png" alt="Gallery photo 3"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <img src="Third Year photos/Introduction to modelling and animation/Chaos_Emerald_sonic_10001_wireframe.png" alt="Gallery photo 4"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
-      <!-- Video -->
       <div class="card panel rounded-xl overflow-hidden">
         <video src="Third Year photos/Final project/Test_Runs/test run 4 dodging test.mp4" class="w-full h-44 object-cover bg-black" controls muted loop></video>
       </div>
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <img src="Third Year photos/Interaction Design/4_reflection3-1.png" alt="Gallery photo 5"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition">
       </div>
 
-      <!-- Video (spans 2 columns) -->
       <div class="card panel rounded-xl overflow-hidden col-span-2">
         <img src="Third Year photos/Final project/poster1.jpg" class="w-full h-44 object-cover bg-black" controls muted loop></img>
       </div>
 
-      <!-- Photo -->
       <div class="card panel rounded-xl overflow-hidden">
         <video src="Third Year photos/Final project/Test_Runs/test run 6 full strength.mp4" alt="Gallery photo 6"
              class="expandable w-full h-44 object-cover cursor-pointer hover:opacity-90 transition"></video>
@@ -416,18 +401,15 @@
     </div>
   </section>
 
-  <!-- ===== IMAGE MODAL (click-to-zoom for .expandable photos) ===== -->
   <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
     <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
     <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
     <p class="mono">&copy; 2025 Hamza Rahman · Final Year</p>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
     /* Scroll reveal */
     const revealObserver = new IntersectionObserver((entries) => {
@@ -435,7 +417,6 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* Click-to-zoom image modal (for any img with class "expandable") */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
@@ -450,7 +431,6 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    /* Count-up stats */
     const countObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
