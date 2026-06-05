@@ -2,221 +2,459 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>First Year | Hamza Rahman</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
 
-  <!-- Header / Navbar -->
-  <header class="bg-white shadow">
-    <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Hamza Rahman</h1>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --panel-border: #e6e8ee;
+      --text: #16181f;
+      --text-dim: #5b606e;
+      --accent: #ff6b4a;
+      --accent2: #f59e0b;
+      --hero: #1a0e0a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    .display { font-family: 'Sora', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .dim { color: var(--text-dim); }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .grad-text {
+      background: linear-gradient(110deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    .card {
+      transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px -22px rgba(255,107,74,.35);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(247,248,250,.8);
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .timeline-line { background: linear-gradient(var(--accent), var(--accent2)); }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="display text-lg font-bold tracking-tight">
+        Hamza<span class="grad-text">.</span>Rahman
+      </a>
       <nav>
-        <ul class="flex space-x-6 text-sm">
-          <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
-          <li><a href="foundation.html" class="hover:text-blue-600">Foundation Year</a></li>
-          <li><a href="first-year.html" class="text-blue-600 font-semibold">First Year</a></li>
-          <li><a href="second-year.html" class="hover:text-blue-600">Second Year</a></li>
-          <li><a href="internship.html" class="hover:text-blue-600">Internship</a></li>
-          <li><a href="third-year.html" class="hover:text-blue-600">Third Year</a></li>
-          <li><a href="3D-models.html" class="hover:text-blue-600">Photo Gallery</a></li>
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm justify-end">
+          <li><a href="index.html" class="dim hover:text-[var(--accent)] transition">Home</a></li>
+          <li><a href="foundation.html" class="dim hover:text-[var(--accent)] transition">Foundation</a></li>
+          <li><a href="first-year.html" class="text-[var(--accent)] font-semibold">First Year</a></li>
+          <li><a href="second-year.html" class="dim hover:text-[var(--accent)] transition">Second Year</a></li>
+          <li><a href="internship.html" class="dim hover:text-[var(--accent)] transition">Internship</a></li>
+          <li><a href="third-year.html" class="dim hover:text-[var(--accent)] transition">Third Year</a></li>
+          <li><a href="3D-models.html" class="dim hover:text-[var(--accent)] transition">Gallery</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative bg-blue-50 py-12 bg-cover bg-center" 
-    style="background-image: url('Images/Goldsmiths.jpg');">
-    <div class="absolute inset-0 bg-blue-900/50"></div>
-    <div class="relative max-w-4xl mx-auto text-center px-4 text-white">
-      <h2 class="text-3xl font-semibold mb-2">First Year Overview</h2>
-      <p class="max-w-xl mx-auto">
-        During my first year at Goldsmiths, I strengthened my programming fundamentals, learned how to work with data, and began building complete software systems. This year marked my growth as a problem solver and team collaborator.
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
+    <canvas id="hero-canvas"></canvas>
+    <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-5 w-full pt-24 text-white">
+      <p class="mono text-sm tracking-[0.3em] mb-5 reveal" style="color:#ffb380;">// YEAR ONE — BSc COMPUTER SCIENCE</p>
+      <h1 class="display font-extrabold leading-[0.95] tracking-tight reveal" style="font-size: clamp(2.8rem, 9vw, 6.5rem);">
+        First<br>
+        <span class="grad-text">Year.</span>
+      </h1>
+      <p class="max-w-2xl mt-8 text-lg reveal" style="color:#c5c9d6; transition-delay:.1s">
+        The year I went from writing my first lines of code to shipping interactive projects.
+        Programming fundamentals, front-end web, graphics, UI design and creative coding in
+        p5.js — the foundation everything else is built on.
       </p>
+      <div class="flex flex-wrap gap-4 mt-10 reveal" style="transition-delay:.2s">
+        <a href="#projects" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
+          Explore the work
+        </a>
+        <a href="#gallery" class="px-7 py-3 rounded-full border border-white/25 text-white font-medium hover:bg-white/10 transition">
+          Jump to media
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 max-w-xl mt-16 reveal" style="transition-delay:.3s">
+        <div>
+          <div class="display text-3xl font-bold" style="color:#ffb380" data-count="6">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">MODULES</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#ffb380" data-count="3">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">LANGUAGES LEARNED</div>
+        </div>
+        <div>
+          <div class="display text-3xl font-bold" style="color:#ffb380" data-count="1">0</div>
+          <div class="text-xs mt-1 mono" style="color:#9aa0b3">FOUNDATION BUILT</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Content Section -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h3 class="text-2xl font-bold mb-6">Key Modules & Projects</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- ===== OVERVIEW ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-24">
+    <div class="grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 reveal">
+        <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">01 — OVERVIEW</p>
+        <h2 class="display text-4xl font-bold leading-tight">First lines<br>of <span class="grad-text">code.</span></h2>
+      </div>
+      <div class="md:col-span-8 reveal" style="transition-delay:.1s">
+        <p class="text-lg leading-relaxed dim">
+          During my first year at Goldsmiths I strengthened my programming fundamentals, learned
+          how to work with data, and began building complete software systems. This was the year
+          I grew as a problem solver and a team collaborator.
+        </p>
+        <p class="text-lg leading-relaxed dim mt-5">
+          Modules ranged from the technical — front-end web, graphics, p5.js — to the conceptual,
+          exploring how design, identity and environment shape the things we build. The mix set
+          the tone for the creative-computing direction my degree would take.
+        </p>
+      </div>
+    </div>
+  </section>
 
-      <!-- Programming Project -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Designing digital interaction</h4>
-          <p class="text-sm text-gray-700">
-            Introduced to the Idea of User Interface (UI) by which designers build user interfaces for software or automated equipment, focussing on aesthetics or style. Designers aim to create user interfaces that are both intuitive and entertaining. UI design involves both graphical and non-graphical user interfaces, including voice-controlled interfaces.
-          </p>
+  <!-- ===== PROJECTS / MODULES ===== -->
+  <section id="projects" class="max-w-6xl mx-auto px-5 py-10">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — MODULES &amp; PROJECTS</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">Selected work</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Featured: Max Slinger 2D (wide, with footage) -->
+      <div class="md:col-span-2 reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full flex flex-col">
+          <video src="Videos/Max Slinger 1.mp4" class="w-full h-64 object-cover bg-black" controls muted loop></video>
+          <div class="p-8 flex flex-col justify-between flex-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="mono text-xs px-3 py-1 rounded-full" style="background: rgba(255,107,74,.1); color: var(--accent);">FIRST GAME</span>
+                <span class="mono text-xs dim">FEATURED</span>
+              </div>
+              <h3 class="display text-3xl font-bold mb-3">Max Slinger 2D</h3>
+              <p class="dim leading-relaxed max-w-2xl">
+                My first complete game — a 2D project that grew into the foundation for the 3D
+                sequel I built in second year. It was the first time I took an idea from concept
+                through to a playable, finished product, learning the loop of game logic, input
+                handling and iteration along the way.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-6">
+              <span class="mono text-xs px-3 py-1 rounded-full panel">JavaScript</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">p5.js</span>
+              <span class="mono text-xs px-3 py-1 rounded-full panel">Game Logic</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Front end web</h4>
-          <p class="text-sm text-gray-700">
-            Gained experience in front-end design with HTML, CSS, and JavaScript. Built interactive web pages and practiced accessibility-first development.
-          </p>
+      <!-- Designing Digital Interaction -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Designing Digital interaction.png" alt="Designing digital interaction"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">UI / DESIGN</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Designing Digital Interaction</h3>
+            <p class="dim text-sm leading-relaxed">
+              An introduction to UI — how designers build interfaces for software and automated
+              systems with a focus on aesthetics and clarity. Covered both graphical and
+              non-graphical interfaces, including voice-controlled ones, with the goal of making
+              interfaces intuitive and enjoyable.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Data & Algorithms -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Creative computing project</h4>
-          <p class="text-sm text-gray-700">
-            To create a unique project based on our interest and techniques using the theme INPUT/OUTPUT. The subject INPUT/OUTPUT is intended to spark discussions on various methods to communication between computational infrastructures, digital systems, and the outside world using coding techniques.
-          </p>
+      <!-- Front-end Web -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <div class="w-full h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #1a0e0a, #ff6b4a);">
+            <div class="text-5xl">🌐</div>
+          </div>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">WEB</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Front-End Web</h3>
+            <p class="dim text-sm leading-relaxed">
+              Hands-on experience in front-end design with HTML, CSS and JavaScript. Built
+              interactive web pages and practiced accessibility-first development — the same
+              skills that power this very portfolio.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Group Project -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Graphics</h4>
-          <p class="text-sm text-gray-700">
-            Creating Image manipulation for artistic purposes, image processing, the use of 2D and 3D geometry for animation and interaction, and the creation of rudimentary physics simulations.
-          </p>
+      <!-- Creative Computing Project -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Asteroids.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">CREATIVE COMPUTING</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Creative Computing · INPUT/OUTPUT</h3>
+            <p class="dim text-sm leading-relaxed">
+              An original project on the theme of INPUT/OUTPUT — exploring how computational
+              infrastructures, digital systems and the outside world communicate through code.
+              My take: a sound-and-signals Asteroids riff that turned audio input into gameplay.
+            </p>
+          </div>
         </div>
       </div>
 
-            <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Identity, Environment and agency</h4>
-          <p class="text-sm text-gray-700">
-            To comprehend that everything in the world may be understood as a text, or as 'textual', create ideas about the world, and comprehend that there are many methods to examine and unpack all sorts of texts in the world, which can be called critical methodologies and theoretical perspectives.
-          </p>
+      <!-- Graphics -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Graphics.png" alt="Graphics collage"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">GRAPHICS</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Graphics</h3>
+            <p class="dim text-sm leading-relaxed">
+              Image manipulation for artistic purposes, image processing, 2D and 3D geometry for
+              animation and interaction, and building rudimentary physics simulations — the visual
+              and mathematical foundation behind the creative work that followed.
+            </p>
+          </div>
         </div>
       </div>
 
-            <!-- Web Development -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Introduction to programming </h4>
-          <p class="text-sm text-gray-700">
-            Utilise a programming environment called p5js, which is based on the web programming language JavaScript.  P5 allows you to create highly interactive rich media apps from the outset.
-          </p>
+      <!-- Identity, Environment and Agency -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <div class="w-full h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #f59e0b, #1a0e0a);">
+            <div class="text-5xl">📖</div>
+          </div>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">THEORY</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Identity, Environment &amp; Agency</h3>
+            <p class="dim text-sm leading-relaxed">
+              Understanding everything in the world as a kind of text — and learning the critical
+              methodologies and theoretical perspectives needed to unpack it. The conceptual
+              counterweight to the technical modules, useful far beyond coursework.
+            </p>
+          </div>
         </div>
       </div>
 
-                        <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Asteroids.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Sounds and Signals Asteroids</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Introduction to Programming -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/First game dev log.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <span class="mono text-xs text-[var(--accent2)]">PROGRAMMING</span>
+            <h3 class="display text-xl font-bold mt-2 mb-3">Introduction to Programming</h3>
+            <p class="dim text-sm leading-relaxed">
+              Built with p5.js — a JavaScript-based environment designed for highly interactive
+              rich-media apps from the start. The dev log here captures my first complete game
+              project, where it all clicked for the first time.
+            </p>
+          </div>
         </div>
       </div>
-
-          <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Collage.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Collage</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Designing Digital interaction.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Designing Digital Interaction</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/First game dev log.mp4" controls muted loop></video> 
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Game Projects (JavaScript)</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Graphics.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Graohics Collage</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Lab-Assessment-3.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Graphics collage Lab-Assessment </h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
-                      <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Max Slinger 1.mp4" controls muted loop></video>
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Max Slinger 2D</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>
-      </div>
-
 
     </div>
   </section>
 
-    <!-- Modal -->
-  <div id="imageModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <span id="closeModal" class="absolute top-6 right-8 text-white text-3xl cursor-pointer hover:text-gray-300">&times;</span>
-    <img id="modalImg" class="max-w-4xl max-h-[80vh] rounded-lg shadow-lg border border-gray-300" src="" alt="">
+  <!-- ===== JOURNEY TIMELINE ===== -->
+  <section class="max-w-4xl mx-auto px-5 py-24">
+    <div class="reveal mb-14">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">03 — THE JOURNEY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">Where it all<br>started</h2>
+    </div>
+
+    <div class="relative pl-8">
+      <div class="absolute left-0 top-2 bottom-2 w-[2px] timeline-line rounded-full"></div>
+      <div class="space-y-10">
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FOUNDATION</span>
+          <h4 class="display text-lg font-bold mt-1">Building the fundamentals</h4>
+          <p class="dim text-sm mt-1">First steps into programming, problem-solving and the maths behind computing.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-5 h-5 rounded-full ring-4 ring-[var(--bg)]" style="background: linear-gradient(135deg, var(--accent), var(--accent2));"></div>
+          <span class="mono text-xs text-[var(--accent)]">FIRST YEAR — YOU ARE HERE</span>
+          <h4 class="display text-lg font-bold mt-1">Core computer science</h4>
+          <p class="dim text-sm mt-1">Programming fundamentals, front-end web, graphics, UI design and creative coding in p5.js.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">SECOND YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Web, C++ &amp; game development</h4>
+          <p class="dim text-sm mt-1">Dynamic web apps, extended C++, two Godot games and embedded electronics.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">INTERNSHIP — SKYPORTS</span>
+          <h4 class="display text-lg font-bold mt-1">Real-world engineering</h4>
+          <p class="dim text-sm mt-1">DevOps, QA and IT infrastructure with Azure, Docker, Terraform and CI/CD.</p>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">THIRD YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Shipping finished work</h4>
+          <p class="dim text-sm mt-1">ML, distributed systems and a substantial final-year project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="panel rounded-3xl p-12 text-center reveal">
+      <h2 class="display text-3xl md:text-4xl font-bold mb-4">See where it goes next</h2>
+      <p class="dim max-w-xl mx-auto mb-8">From foundation through to my final-year work — the journey continues.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="second-year.html" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">Second Year</a>
+        <a href="foundation.html" class="px-7 py-3 rounded-full panel font-medium hover:border-[var(--accent)] transition">Back to Foundation</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ===== IMAGE MODAL ===== -->
+  <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
+    <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
+    <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t text-center py-4 text-sm text-gray-500">
-    &copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
+    <p class="mono">&copy; 2025 Hamza Rahman · First Year</p>
   </footer>
 
-    <!-- (Java) Script -->
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    const images = document.querySelectorAll('.expandable');
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Click-to-zoom image modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
-
-    images.forEach(img => {
+    document.querySelectorAll('.expandable').forEach(img => {
       img.addEventListener('click', () => {
         modal.classList.remove('hidden');
         modalImg.src = img.src;
       });
     });
+    function hideModal() { modal.classList.add('hidden'); modalImg.src = ''; }
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    closeModal.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modalImg.src = '';
-    });
+    /* Count-up stats */
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.count;
+        let cur = 0; const step = Math.max(1, Math.round(target / 40));
+        const tick = () => {
+          cur += step;
+          if (cur >= target) el.textContent = target;
+          else { el.textContent = cur; requestAnimationFrame(tick); }
+        };
+        tick(); countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modalImg.src = '';
-      }
-    });
+    /* Three.js hero */
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000);
+      camera.position.z = 60;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      const COUNT = 700;
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT * 3; i++) positions[i] = (Math.random() - 0.5) * 140;
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.45, color: 0xff8a5b, transparent: true, opacity: 0.7 }));
+      scene.add(points);
+
+      // First-year signature shape: Tetrahedron (simplest platonic solid — foundation)
+      const ico = new THREE.Mesh(
+        new THREE.TetrahedronGeometry(20, 0),
+        new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true, transparent: true, opacity: 0.45 })
+      );
+      scene.add(ico);
+
+      let mx = 0, my = 0;
+      addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; });
+
+      (function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0005; points.rotation.x += 0.00025;
+        ico.rotation.y += 0.0022; ico.rotation.x += 0.0011;
+        camera.position.x += (mx * 10 - camera.position.x) * 0.04;
+        camera.position.y += (-my * 10 - camera.position.y) * 0.04;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      })();
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    })();
   </script>
-
 </body>
 </html>
