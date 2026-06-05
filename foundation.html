@@ -2,204 +2,378 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Foundation Year | Hamza Rahman</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
 
-  <!-- Header / Navbar -->
-  <header class="bg-white shadow">
-    <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Hamza Rahman</h1>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --panel-border: #e6e8ee;
+      --text: #16181f;
+      --text-dim: #5b606e;
+      --accent: #4f76d4;
+      --accent2: #8fa5e0;
+      --hero: #0f1525;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    .display { font-family: 'Sora', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .dim { color: var(--text-dim); }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .grad-text {
+      background: linear-gradient(110deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    .card {
+      transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px -22px rgba(79,118,212,.35);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(247,248,250,.8);
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .timeline-line { background: linear-gradient(var(--accent), var(--accent2)); }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="display text-lg font-bold tracking-tight">
+        Hamza<span class="grad-text">.</span>Rahman
+      </a>
       <nav>
-        <ul class="flex space-x-6 text-sm">
-          <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
-          <li><a href="foundation.html" class="text-blue-600 font-semibold">Foundation Year</a></li>
-          <li><a href="first-year.html" class="hover:text-blue-600">First Year</a></li>
-          <li><a href="second-year.html" class="hover:text-blue-600">Second Year</a></li>
-          <li><a href="internship.html" class="hover:text-blue-600">Internship</a></li>
-          <li><a href="third-year.html" class="hover:text-blue-600">Third Year</a></li>
-          <li><a href="3D-models.html" class="hover:text-blue-600">Photo Gallery</a></li>
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm justify-end">
+          <li><a href="index.html" class="dim hover:text-[var(--accent)] transition">Home</a></li>
+          <li><a href="foundation.html" class="text-[var(--accent)] font-semibold">Foundation</a></li>
+          <li><a href="first-year.html" class="dim hover:text-[var(--accent)] transition">First Year</a></li>
+          <li><a href="second-year.html" class="dim hover:text-[var(--accent)] transition">Second Year</a></li>
+          <li><a href="internship.html" class="dim hover:text-[var(--accent)] transition">Internship</a></li>
+          <li><a href="third-year.html" class="dim hover:text-[var(--accent)] transition">Third Year</a></li>
+          <li><a href="3D-models.html" class="dim hover:text-[var(--accent)] transition">Gallery</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative bg-blue-50 py-12 bg-cover bg-center" 
-    style="background-image: url('Images/UEA.jpeg');">
-    <div class="absolute inset-0 bg-blue-900/50"></div>
-    <div class="relative max-w-4xl mx-auto text-center px-4 text-white">
-      <h2 class="text-3xl font-semibold mb-2">Foundation Year Overview</h2>
-      <p class="max-w-xl mx-auto">
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero);">
+    <canvas id="hero-canvas"></canvas>
+    <div class="absolute inset-0 z-[1]" style="background: radial-gradient(120% 90% at 75% 25%, transparent 35%, var(--hero) 90%);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-5 w-full pt-24 text-white">
+      <p class="mono text-sm tracking-[0.3em] mb-5 reveal" style="color:#b8c5e8;">// FOUNDATION YEAR — BSc COMPUTER SCIENCE</p>
+      <h1 class="display font-extrabold leading-[0.95] tracking-tight reveal" style="font-size: clamp(2.8rem, 9vw, 6.5rem);">
+        Foundation<br>
+        <span class="grad-text">Year.</span>
+      </h1>
+      <p class="max-w-2xl mt-8 text-lg reveal" style="color:#c5c9d6; transition-delay:.1s">
         In my foundation year at Goldsmiths, I built the groundwork for my Computer Science journey, developing confidence in programming, group collaboration, and academic writing.
       </p>
+      <div class="flex flex-wrap gap-4 mt-10 reveal" style="transition-delay:.2s">
+        <a href="#projects" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">
+          Explore the work
+        </a>
+      </div>
     </div>
   </section>
 
+  <!-- ===== PROJECTS / KEY HIGHLIGHTS ===== -->
+  <section id="projects" class="max-w-6xl mx-auto px-5 py-24">
+    <div class="reveal mb-12">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">01 — KEY HIGHLIGHTS</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">Modules &amp; projects</h2>
+    </div>
 
-  <!-- Content Section -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h3 class="text-2xl font-bold mb-6">Key Highlights</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- Module 1 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Introduction to Programming</h4>
-        <p class="text-sm text-gray-700">
-          Learned the basics of Python, logic building, and algorithmic thinking. Built simple applications like a calculator and a number guessing game.
-        </p>
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Introduction to Programming</h3>
+          <p class="dim text-sm leading-relaxed">
+            Learned the basics of Python, logic building, and algorithmic thinking. Built simple applications like a calculator and a number guessing game.
+          </p>
+        </div>
       </div>
 
       <!-- Module 2 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Foundations of computing 1</h4>
-        <p class="text-sm text-gray-700">
-          Created static websites using HTML and CSS. Explored web accessibility and responsiveness for mobile-first design.
-        </p>
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Foundations of computing 1</h3>
+          <p class="dim text-sm leading-relaxed">
+            Created static websites using HTML and CSS. Explored web accessibility and responsiveness for mobile-first design.
+          </p>
+        </div>
       </div>
 
       <!-- Module 3 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Introduction to mathematics for Scientists</h4>
-        <p class="text-sm text-gray-700">
-          Covered discrete maths, logic gates, and Boolean algebra — foundational for understanding computer architecture. Topics include arithmetic and fractions, linear and quadratic functions and their graphs, exponentials and logarithms, and trigonometry.
-        </p>
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Introduction to mathematics for Scientists</h3>
+          <p class="dim text-sm leading-relaxed">
+            Covered discrete maths, logic gates, and Boolean algebra — foundational for understanding computer architecture. Topics include arithmetic and fractions, linear and quadratic functions and their graphs, exponentials and logarithms, and trigonometry.
+          </p>
+        </div>
       </div>
 
       <!-- Module 4 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Further mathematics for Scientists</h4>
-        <p class="text-sm text-gray-700">
-          Introduced to calculus, which includes differentiation and integration. Differentiation can be used to find the slope of a graph, which tells you how quickly one quantity varies as you change another. Integration allows you to find the area under the curve on a graph, and can be used for quantifying cumulative effects.
-        </p>
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Further mathematics for Scientists</h3>
+          <p class="dim text-sm leading-relaxed">
+            Introduced to calculus, which includes differentiation and integration. Differentiation can be used to find the slope of a graph, which tells you how quickly one quantity varies as you change another. Integration allows you to find the area under the curve on a graph, and can be used for quantifying cumulative effects.
+          </p>
+        </div>
       </div>
 
       <!-- Module 5 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Foundations of computing 2</h4>
-        <p class="text-sm text-gray-700">
-          Collaborated in a small team to design and present a timetable planner web app. Developed teamwork, presentation, and feedback-handling skills.
-        </p>
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Foundations of computing 2</h3>
+          <p class="dim text-sm leading-relaxed">
+            Collaborated in a small team to design and present a timetable planner web app. Developed teamwork, presentation, and feedback-handling skills.
+          </p>
+        </div>
       </div>
 
       <!-- Module 6 -->
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Introduction to systems design</h4>
-        <p class="text-sm text-gray-700">
-          Introduced to the concept of the lifecycle approach to systems development and basic systems analysis and design techniques using a top down, functional decomposition approach.
-        </p>
-      </div>
-
-      <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Monte-carlo-sim.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Monte-Carlo-Simulation</h4>
-          <p class="text-sm text-gray-700">
+      <div class="reveal">
+        <div class="card panel rounded-2xl p-7 h-full">
+          <h3 class="display text-xl font-bold mb-3">Introduction to systems design</h3>
+          <p class="dim text-sm leading-relaxed">
+            Introduced to the concept of the lifecycle approach to systems development and basic systems analysis and design techniques using a top down, functional decomposition approach.
           </p>
         </div>
       </div>
 
-      <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Arduino.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Arduino board</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Photo: Monte-Carlo-Simulation -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Monte-carlo-sim.png" alt="Group Project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Monte-Carlo-Simulation</h3>
+          </div>
         </div>
       </div>
 
-      <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Screenshot 2025-10-15 213454.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Systems Design</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Photo: Arduino board -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Arduino.png" alt="Group Project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Arduino board</h3>
+          </div>
         </div>
       </div>
 
-      <!-- Photos -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <img src="Images/Screenshot 2025-10-15 213506.png" alt="Group Project" 
-             class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-80 transition">
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Systems Design</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Photo: Systems Design -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Screenshot 2025-10-15 213454.png" alt="Group Project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Systems Design</h3>
+          </div>
         </div>
       </div>
 
-      <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Kiosk.mp4" controls muted loop></video> 
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Kiosk UI</h4>
-          <p class="text-sm text-gray-700">
-          </p>
+      <!-- Photo: Systems Design -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <img src="Images/Screenshot 2025-10-15 213506.png" alt="Group Project"
+               class="expandable w-full h-48 object-cover cursor-pointer hover:opacity-90 transition">
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Systems Design</h3>
+          </div>
         </div>
       </div>
 
-      <!-- video -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-        <video src="Videos/Montecarlo.mp4" controls muted loop></video> 
-        <div class="p-6">
-          <h4 class="font-semibold text-lg mb-2">Monte-Carlo-Simulation</h4>
-          <p class="text-sm text-gray-700">
-          </p>
-        </div>  
-      </div>   
+      <!-- Video: Kiosk UI -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Kiosk.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Kiosk UI</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video: Monte-Carlo-Simulation -->
+      <div class="reveal">
+        <div class="card panel rounded-2xl overflow-hidden h-full">
+          <video src="Videos/Montecarlo.mp4" class="w-full h-48 object-cover bg-black" controls muted loop></video>
+          <div class="p-7">
+            <h3 class="display text-xl font-bold">Monte-Carlo-Simulation</h3>
+          </div>
+        </div>
+      </div>
 
     </div>
   </section>
 
-    <!-- Modal -->
-  <div id="imageModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <span id="closeModal" class="absolute top-6 right-8 text-white text-3xl cursor-pointer hover:text-gray-300">&times;</span>
-    <img id="modalImg" class="max-w-4xl max-h-[80vh] rounded-lg shadow-lg border border-gray-300" src="" alt="">
+  <!-- ===== JOURNEY TIMELINE ===== -->
+  <section class="max-w-4xl mx-auto px-5 py-24">
+    <div class="reveal mb-14">
+      <p class="mono text-xs tracking-[0.3em] text-[var(--accent2)] mb-4">02 — THE JOURNEY</p>
+      <h2 class="display text-4xl md:text-5xl font-bold">The whole<br>journey ahead</h2>
+    </div>
+
+    <div class="relative pl-8">
+      <div class="absolute left-0 top-2 bottom-2 w-[2px] timeline-line rounded-full"></div>
+      <div class="space-y-10">
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-5 h-5 rounded-full ring-4 ring-[var(--bg)]" style="background: linear-gradient(135deg, var(--accent), var(--accent2));"></div>
+          <span class="mono text-xs text-[var(--accent)]">FOUNDATION — YOU ARE HERE</span>
+          <h4 class="display text-lg font-bold mt-1">Building the fundamentals</h4>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">FIRST YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Core computer science</h4>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">SECOND YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Web, C++ &amp; game development</h4>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">INTERNSHIP — SKYPORTS</span>
+          <h4 class="display text-lg font-bold mt-1">Real-world engineering</h4>
+        </div>
+        <div class="relative reveal">
+          <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-[var(--accent2)] ring-4 ring-[var(--bg)]"></div>
+          <span class="mono text-xs dim">THIRD YEAR</span>
+          <h4 class="display text-lg font-bold mt-1">Shipping finished work</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="max-w-6xl mx-auto px-5 py-16">
+    <div class="panel rounded-3xl p-12 text-center reveal">
+      <h2 class="display text-3xl md:text-4xl font-bold mb-4">See where it goes next</h2>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="first-year.html" class="px-7 py-3 rounded-full bg-[var(--accent)] text-white font-medium hover:opacity-90 transition">First Year →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGE MODAL ===== -->
+  <div id="imageModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center z-[100]">
+    <span id="closeModal" class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-gray-300 leading-none">&times;</span>
+    <img id="modalImg" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" src="" alt="">
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t text-center py-4 text-sm text-gray-500">
-    &copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-[var(--panel-border)] py-8 text-center text-sm dim">
+    <p class="mono">&copy; 2025 Hamza Rahman. Player 1: Still coding, still learning.</p>
   </footer>
 
-    <!-- (Java) Script -->
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    const images = document.querySelectorAll('.expandable');
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Click-to-zoom image modal */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
-
-    images.forEach(img => {
+    document.querySelectorAll('.expandable').forEach(img => {
       img.addEventListener('click', () => {
         modal.classList.remove('hidden');
         modalImg.src = img.src;
       });
     });
+    function hideModal() { modal.classList.add('hidden'); modalImg.src = ''; }
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
 
-    closeModal.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modalImg.src = '';
-    });
+    /* Three.js hero — particles only, no central shape */
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000);
+      camera.position.z = 60;
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modalImg.src = '';
-      }
-    });
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      const COUNT = 800;
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT * 3; i++) positions[i] = (Math.random() - 0.5) * 140;
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.5, color: 0x6b88d8, transparent: true, opacity: 0.75 }));
+      scene.add(points);
+
+      let mx = 0, my = 0;
+      addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; });
+
+      (function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0004; points.rotation.x += 0.0002;
+        camera.position.x += (mx * 10 - camera.position.x) * 0.04;
+        camera.position.y += (-my * 10 - camera.position.y) * 0.04;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+      })();
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    })();
   </script>
-
 </body>
 </html>
-
-
-
-
